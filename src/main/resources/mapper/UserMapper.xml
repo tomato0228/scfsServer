@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.tomato.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="ltd.tomato.model.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_sex" jdbcType="CHAR" property="userSex" />
+    <result column="user_birth" jdbcType="DATE" property="userBirth" />
+    <result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+    <result column="user_addr" jdbcType="VARCHAR" property="userAddr" />
+    <result column="user_type" jdbcType="CHAR" property="userType" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_profile" jdbcType="VARCHAR" property="userProfile" />
+    <result column="user_signature" jdbcType="VARCHAR" property="userSignature" />
+    <result column="user_date" jdbcType="TIMESTAMP" property="userDate" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, user_name, user_sex, user_birth, user_tel, user_addr, user_type, user_email, 
+    user_profile, user_signature, user_date, user_password
+  </sql>
+  <select id="selectByExample" parameterType="ltd.tomato.model.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ltd.tomato.model.UserExample">
+    delete from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ltd.tomato.model.User">
+    insert into user (user_id, user_name, user_sex, 
+      user_birth, user_tel, user_addr, 
+      user_type, user_email, user_profile, 
+      user_signature, user_date, user_password
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userSex,jdbcType=CHAR}, 
+      #{userBirth,jdbcType=DATE}, #{userTel,jdbcType=VARCHAR}, #{userAddr,jdbcType=VARCHAR}, 
+      #{userType,jdbcType=CHAR}, #{userEmail,jdbcType=VARCHAR}, #{userProfile,jdbcType=VARCHAR}, 
+      #{userSignature,jdbcType=VARCHAR}, #{userDate,jdbcType=TIMESTAMP}, #{userPassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="ltd.tomato.model.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userSex != null">
+        user_sex,
+      </if>
+      <if test="userBirth != null">
+        user_birth,
+      </if>
+      <if test="userTel != null">
+        user_tel,
+      </if>
+      <if test="userAddr != null">
+        user_addr,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="userProfile != null">
+        user_profile,
+      </if>
+      <if test="userSignature != null">
+        user_signature,
+      </if>
+      <if test="userDate != null">
+        user_date,
+      </if>
+      <if test="userPassword != null">
+        user_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=CHAR},
+      </if>
+      <if test="userBirth != null">
+        #{userBirth,jdbcType=DATE},
+      </if>
+      <if test="userTel != null">
+        #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddr != null">
+        #{userAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=CHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfile != null">
+        #{userProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="userSignature != null">
+        #{userSignature,jdbcType=VARCHAR},
+      </if>
+      <if test="userDate != null">
+        #{userDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ltd.tomato.model.UserExample" resultType="java.lang.Long">
+    select count(*) from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSex != null">
+        user_sex = #{record.userSex,jdbcType=CHAR},
+      </if>
+      <if test="record.userBirth != null">
+        user_birth = #{record.userBirth,jdbcType=DATE},
+      </if>
+      <if test="record.userTel != null">
+        user_tel = #{record.userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAddr != null">
+        user_addr = #{record.userAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userType != null">
+        user_type = #{record.userType,jdbcType=CHAR},
+      </if>
+      <if test="record.userEmail != null">
+        user_email = #{record.userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userProfile != null">
+        user_profile = #{record.userProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSignature != null">
+        user_signature = #{record.userSignature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userDate != null">
+        user_date = #{record.userDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userPassword != null">
+        user_password = #{record.userPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_sex = #{record.userSex,jdbcType=CHAR},
+      user_birth = #{record.userBirth,jdbcType=DATE},
+      user_tel = #{record.userTel,jdbcType=VARCHAR},
+      user_addr = #{record.userAddr,jdbcType=VARCHAR},
+      user_type = #{record.userType,jdbcType=CHAR},
+      user_email = #{record.userEmail,jdbcType=VARCHAR},
+      user_profile = #{record.userProfile,jdbcType=VARCHAR},
+      user_signature = #{record.userSignature,jdbcType=VARCHAR},
+      user_date = #{record.userDate,jdbcType=TIMESTAMP},
+      user_password = #{record.userPassword,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ltd.tomato.model.User">
+    update user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        user_sex = #{userSex,jdbcType=CHAR},
+      </if>
+      <if test="userBirth != null">
+        user_birth = #{userBirth,jdbcType=DATE},
+      </if>
+      <if test="userTel != null">
+        user_tel = #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddr != null">
+        user_addr = #{userAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=CHAR},
+      </if>
+      <if test="userEmail != null">
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfile != null">
+        user_profile = #{userProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="userSignature != null">
+        user_signature = #{userSignature,jdbcType=VARCHAR},
+      </if>
+      <if test="userDate != null">
+        user_date = #{userDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ltd.tomato.model.User">
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=CHAR},
+      user_birth = #{userBirth,jdbcType=DATE},
+      user_tel = #{userTel,jdbcType=VARCHAR},
+      user_addr = #{userAddr,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=CHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_profile = #{userProfile,jdbcType=VARCHAR},
+      user_signature = #{userSignature,jdbcType=VARCHAR},
+      user_date = #{userDate,jdbcType=TIMESTAMP},
+      user_password = #{userPassword,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.tomato.mapper.HomeworkMapper">
+  <resultMap id="BaseResultMap" type="ltd.tomato.model.Homework">
+    <id column="homework_id" jdbcType="INTEGER" property="homeworkId" />
+    <result column="homework_content" jdbcType="VARCHAR" property="homeworkContent" />
+    <result column="homework_date" jdbcType="DATE" property="homeworkDate" />
+    <result column="tclass_id" jdbcType="INTEGER" property="tclassId" />
+    <result column="homework_attachment" jdbcType="VARCHAR" property="homeworkAttachment" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    homework_id, homework_content, homework_date, tclass_id, homework_attachment
+  </sql>
+  <select id="selectByExample" parameterType="ltd.tomato.model.HomeworkExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from homework
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from homework
+    where homework_id = #{homeworkId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from homework
+    where homework_id = #{homeworkId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ltd.tomato.model.HomeworkExample">
+    delete from homework
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ltd.tomato.model.Homework">
+    insert into homework (homework_id, homework_content, homework_date, 
+      tclass_id, homework_attachment)
+    values (#{homeworkId,jdbcType=INTEGER}, #{homeworkContent,jdbcType=VARCHAR}, #{homeworkDate,jdbcType=DATE}, 
+      #{tclassId,jdbcType=INTEGER}, #{homeworkAttachment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="ltd.tomato.model.Homework">
+    insert into homework
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="homeworkId != null">
+        homework_id,
+      </if>
+      <if test="homeworkContent != null">
+        homework_content,
+      </if>
+      <if test="homeworkDate != null">
+        homework_date,
+      </if>
+      <if test="tclassId != null">
+        tclass_id,
+      </if>
+      <if test="homeworkAttachment != null">
+        homework_attachment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="homeworkId != null">
+        #{homeworkId,jdbcType=INTEGER},
+      </if>
+      <if test="homeworkContent != null">
+        #{homeworkContent,jdbcType=VARCHAR},
+      </if>
+      <if test="homeworkDate != null">
+        #{homeworkDate,jdbcType=DATE},
+      </if>
+      <if test="tclassId != null">
+        #{tclassId,jdbcType=INTEGER},
+      </if>
+      <if test="homeworkAttachment != null">
+        #{homeworkAttachment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ltd.tomato.model.HomeworkExample" resultType="java.lang.Long">
+    select count(*) from homework
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update homework
+    <set>
+      <if test="record.homeworkId != null">
+        homework_id = #{record.homeworkId,jdbcType=INTEGER},
+      </if>
+      <if test="record.homeworkContent != null">
+        homework_content = #{record.homeworkContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeworkDate != null">
+        homework_date = #{record.homeworkDate,jdbcType=DATE},
+      </if>
+      <if test="record.tclassId != null">
+        tclass_id = #{record.tclassId,jdbcType=INTEGER},
+      </if>
+      <if test="record.homeworkAttachment != null">
+        homework_attachment = #{record.homeworkAttachment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update homework
+    set homework_id = #{record.homeworkId,jdbcType=INTEGER},
+      homework_content = #{record.homeworkContent,jdbcType=VARCHAR},
+      homework_date = #{record.homeworkDate,jdbcType=DATE},
+      tclass_id = #{record.tclassId,jdbcType=INTEGER},
+      homework_attachment = #{record.homeworkAttachment,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ltd.tomato.model.Homework">
+    update homework
+    <set>
+      <if test="homeworkContent != null">
+        homework_content = #{homeworkContent,jdbcType=VARCHAR},
+      </if>
+      <if test="homeworkDate != null">
+        homework_date = #{homeworkDate,jdbcType=DATE},
+      </if>
+      <if test="tclassId != null">
+        tclass_id = #{tclassId,jdbcType=INTEGER},
+      </if>
+      <if test="homeworkAttachment != null">
+        homework_attachment = #{homeworkAttachment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where homework_id = #{homeworkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ltd.tomato.model.Homework">
+    update homework
+    set homework_content = #{homeworkContent,jdbcType=VARCHAR},
+      homework_date = #{homeworkDate,jdbcType=DATE},
+      tclass_id = #{tclassId,jdbcType=INTEGER},
+      homework_attachment = #{homeworkAttachment,jdbcType=VARCHAR}
+    where homework_id = #{homeworkId,jdbcType=INTEGER}
+  </update>
+</mapper>

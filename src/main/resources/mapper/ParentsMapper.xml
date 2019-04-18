@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.tomato.mapper.ParentsMapper">
+  <resultMap id="BaseResultMap" type="ltd.tomato.model.Parents">
+    <id column="parents_id" jdbcType="INTEGER" property="parentsId" />
+    <result column="parents_relation" jdbcType="CHAR" property="parentsRelation" />
+    <result column="student_id" jdbcType="INTEGER" property="studentId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    parents_id, parents_relation, student_id
+  </sql>
+  <select id="selectByExample" parameterType="ltd.tomato.model.ParentsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from parents
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from parents
+    where parents_id = #{parentsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from parents
+    where parents_id = #{parentsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ltd.tomato.model.ParentsExample">
+    delete from parents
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ltd.tomato.model.Parents">
+    insert into parents (parents_id, parents_relation, student_id
+      )
+    values (#{parentsId,jdbcType=INTEGER}, #{parentsRelation,jdbcType=CHAR}, #{studentId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="ltd.tomato.model.Parents">
+    insert into parents
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parentsId != null">
+        parents_id,
+      </if>
+      <if test="parentsRelation != null">
+        parents_relation,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parentsId != null">
+        #{parentsId,jdbcType=INTEGER},
+      </if>
+      <if test="parentsRelation != null">
+        #{parentsRelation,jdbcType=CHAR},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ltd.tomato.model.ParentsExample" resultType="java.lang.Long">
+    select count(*) from parents
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update parents
+    <set>
+      <if test="record.parentsId != null">
+        parents_id = #{record.parentsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentsRelation != null">
+        parents_relation = #{record.parentsRelation,jdbcType=CHAR},
+      </if>
+      <if test="record.studentId != null">
+        student_id = #{record.studentId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update parents
+    set parents_id = #{record.parentsId,jdbcType=INTEGER},
+      parents_relation = #{record.parentsRelation,jdbcType=CHAR},
+      student_id = #{record.studentId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ltd.tomato.model.Parents">
+    update parents
+    <set>
+      <if test="parentsRelation != null">
+        parents_relation = #{parentsRelation,jdbcType=CHAR},
+      </if>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where parents_id = #{parentsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ltd.tomato.model.Parents">
+    update parents
+    set parents_relation = #{parentsRelation,jdbcType=CHAR},
+      student_id = #{studentId,jdbcType=INTEGER}
+    where parents_id = #{parentsId,jdbcType=INTEGER}
+  </update>
+</mapper>

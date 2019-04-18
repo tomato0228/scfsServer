@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.tomato.mapper.SchoolMapper">
+  <resultMap id="BaseResultMap" type="ltd.tomato.model.School">
+    <id column="school_id" jdbcType="INTEGER" property="schoolId" />
+    <result column="school_name" jdbcType="VARCHAR" property="schoolName" />
+    <result column="school_profile" jdbcType="VARCHAR" property="schoolProfile" />
+    <result column="school_addr" jdbcType="VARCHAR" property="schoolAddr" />
+    <result column="school_tel" jdbcType="VARCHAR" property="schoolTel" />
+    <result column="school_url" jdbcType="VARCHAR" property="schoolUrl" />
+    <result column="school_logo" jdbcType="VARCHAR" property="schoolLogo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    school_id, school_name, school_profile, school_addr, school_tel, school_url, school_logo
+  </sql>
+  <select id="selectByExample" parameterType="ltd.tomato.model.SchoolExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from school
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from school
+    where school_id = #{schoolId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from school
+    where school_id = #{schoolId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ltd.tomato.model.SchoolExample">
+    delete from school
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ltd.tomato.model.School">
+    insert into school (school_id, school_name, school_profile, 
+      school_addr, school_tel, school_url, 
+      school_logo)
+    values (#{schoolId,jdbcType=INTEGER}, #{schoolName,jdbcType=VARCHAR}, #{schoolProfile,jdbcType=VARCHAR}, 
+      #{schoolAddr,jdbcType=VARCHAR}, #{schoolTel,jdbcType=VARCHAR}, #{schoolUrl,jdbcType=VARCHAR}, 
+      #{schoolLogo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="ltd.tomato.model.School">
+    insert into school
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="schoolId != null">
+        school_id,
+      </if>
+      <if test="schoolName != null">
+        school_name,
+      </if>
+      <if test="schoolProfile != null">
+        school_profile,
+      </if>
+      <if test="schoolAddr != null">
+        school_addr,
+      </if>
+      <if test="schoolTel != null">
+        school_tel,
+      </if>
+      <if test="schoolUrl != null">
+        school_url,
+      </if>
+      <if test="schoolLogo != null">
+        school_logo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="schoolId != null">
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolName != null">
+        #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolProfile != null">
+        #{schoolProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolAddr != null">
+        #{schoolAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolTel != null">
+        #{schoolTel,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolUrl != null">
+        #{schoolUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolLogo != null">
+        #{schoolLogo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ltd.tomato.model.SchoolExample" resultType="java.lang.Long">
+    select count(*) from school
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update school
+    <set>
+      <if test="record.schoolId != null">
+        school_id = #{record.schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="record.schoolName != null">
+        school_name = #{record.schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolProfile != null">
+        school_profile = #{record.schoolProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolAddr != null">
+        school_addr = #{record.schoolAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolTel != null">
+        school_tel = #{record.schoolTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolUrl != null">
+        school_url = #{record.schoolUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolLogo != null">
+        school_logo = #{record.schoolLogo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update school
+    set school_id = #{record.schoolId,jdbcType=INTEGER},
+      school_name = #{record.schoolName,jdbcType=VARCHAR},
+      school_profile = #{record.schoolProfile,jdbcType=VARCHAR},
+      school_addr = #{record.schoolAddr,jdbcType=VARCHAR},
+      school_tel = #{record.schoolTel,jdbcType=VARCHAR},
+      school_url = #{record.schoolUrl,jdbcType=VARCHAR},
+      school_logo = #{record.schoolLogo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ltd.tomato.model.School">
+    update school
+    <set>
+      <if test="schoolName != null">
+        school_name = #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolProfile != null">
+        school_profile = #{schoolProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolAddr != null">
+        school_addr = #{schoolAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolTel != null">
+        school_tel = #{schoolTel,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolUrl != null">
+        school_url = #{schoolUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolLogo != null">
+        school_logo = #{schoolLogo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where school_id = #{schoolId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ltd.tomato.model.School">
+    update school
+    set school_name = #{schoolName,jdbcType=VARCHAR},
+      school_profile = #{schoolProfile,jdbcType=VARCHAR},
+      school_addr = #{schoolAddr,jdbcType=VARCHAR},
+      school_tel = #{schoolTel,jdbcType=VARCHAR},
+      school_url = #{schoolUrl,jdbcType=VARCHAR},
+      school_logo = #{schoolLogo,jdbcType=VARCHAR}
+    where school_id = #{schoolId,jdbcType=INTEGER}
+  </update>
+</mapper>
