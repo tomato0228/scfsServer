@@ -26,7 +26,7 @@ public interface HomeworkService {
     /**
      * 教师删除作业
      *
-     * @param object 教师：用户ID、班级ID、课程ID
+     * @param object 教师：作业ID
      * @return 返回是否增加成功
      * @throws Exception 处理异常
      */
@@ -35,7 +35,7 @@ public interface HomeworkService {
     /**
      * 教师编辑作业
      *
-     * @param object 教师：用户ID、班级ID、课程ID
+     * @param object 教师：作业ID + 内容
      * @return 返回是否增加成功
      * @throws Exception 处理异常
      */
