@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="ltd.tomato.model.Homework">
     <id column="homework_id" jdbcType="INTEGER" property="homeworkId" />
     <result column="homework_content" jdbcType="VARCHAR" property="homeworkContent" />
-    <result column="homework_date" jdbcType="DATE" property="homeworkDate" />
+    <result column="homework_date" jdbcType="TIMESTAMP" property="homeworkDate" />
     <result column="tclass_id" jdbcType="INTEGER" property="tclassId" />
     <result column="homework_attachment" jdbcType="VARCHAR" property="homeworkAttachment" />
   </resultMap>
@@ -107,18 +107,15 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="ltd.tomato.model.Homework">
-    insert into homework (homework_id, homework_content, homework_date, 
+  <insert id="insert" keyColumn="homework_id" keyProperty="homeworkId" parameterType="ltd.tomato.model.Homework" useGeneratedKeys="true">
+    insert into homework (homework_content, homework_date, 
       tclass_id, homework_attachment)
-    values (#{homeworkId,jdbcType=INTEGER}, #{homeworkContent,jdbcType=VARCHAR}, #{homeworkDate,jdbcType=DATE}, 
+    values (#{homeworkContent,jdbcType=VARCHAR}, #{homeworkDate,jdbcType=TIMESTAMP}, 
       #{tclassId,jdbcType=INTEGER}, #{homeworkAttachment,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="ltd.tomato.model.Homework">
+  <insert id="insertSelective" keyColumn="homework_id" keyProperty="homeworkId" parameterType="ltd.tomato.model.Homework" useGeneratedKeys="true">
     insert into homework
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="homeworkId != null">
-        homework_id,
-      </if>
       <if test="homeworkContent != null">
         homework_content,
       </if>
@@ -133,14 +130,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="homeworkId != null">
-        #{homeworkId,jdbcType=INTEGER},
-      </if>
       <if test="homeworkContent != null">
         #{homeworkContent,jdbcType=VARCHAR},
       </if>
       <if test="homeworkDate != null">
-        #{homeworkDate,jdbcType=DATE},
+        #{homeworkDate,jdbcType=TIMESTAMP},
       </if>
       <if test="tclassId != null">
         #{tclassId,jdbcType=INTEGER},
@@ -166,7 +160,7 @@
         homework_content = #{record.homeworkContent,jdbcType=VARCHAR},
       </if>
       <if test="record.homeworkDate != null">
-        homework_date = #{record.homeworkDate,jdbcType=DATE},
+        homework_date = #{record.homeworkDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.tclassId != null">
         tclass_id = #{record.tclassId,jdbcType=INTEGER},
@@ -183,7 +177,7 @@
     update homework
     set homework_id = #{record.homeworkId,jdbcType=INTEGER},
       homework_content = #{record.homeworkContent,jdbcType=VARCHAR},
-      homework_date = #{record.homeworkDate,jdbcType=DATE},
+      homework_date = #{record.homeworkDate,jdbcType=TIMESTAMP},
       tclass_id = #{record.tclassId,jdbcType=INTEGER},
       homework_attachment = #{record.homeworkAttachment,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -197,7 +191,7 @@
         homework_content = #{homeworkContent,jdbcType=VARCHAR},
       </if>
       <if test="homeworkDate != null">
-        homework_date = #{homeworkDate,jdbcType=DATE},
+        homework_date = #{homeworkDate,jdbcType=TIMESTAMP},
       </if>
       <if test="tclassId != null">
         tclass_id = #{tclassId,jdbcType=INTEGER},
@@ -211,7 +205,7 @@
   <update id="updateByPrimaryKey" parameterType="ltd.tomato.model.Homework">
     update homework
     set homework_content = #{homeworkContent,jdbcType=VARCHAR},
-      homework_date = #{homeworkDate,jdbcType=DATE},
+      homework_date = #{homeworkDate,jdbcType=TIMESTAMP},
       tclass_id = #{tclassId,jdbcType=INTEGER},
       homework_attachment = #{homeworkAttachment,jdbcType=VARCHAR}
     where homework_id = #{homeworkId,jdbcType=INTEGER}

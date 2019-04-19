@@ -5,7 +5,7 @@
     <id column="notice_id" jdbcType="INTEGER" property="noticeId" />
     <result column="notice_title" jdbcType="VARCHAR" property="noticeTitle" />
     <result column="notice_content" jdbcType="VARCHAR" property="noticeContent" />
-    <result column="notice_date" jdbcType="DATE" property="noticeDate" />
+    <result column="notice_date" jdbcType="TIMESTAMP" property="noticeDate" />
     <result column="notice_attachment" jdbcType="VARCHAR" property="noticeAttachment" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="class_id" jdbcType="INTEGER" property="classId" />
@@ -115,7 +115,7 @@
       notice_date, notice_attachment, user_id, 
       class_id)
     values (#{noticeId,jdbcType=INTEGER}, #{noticeTitle,jdbcType=VARCHAR}, #{noticeContent,jdbcType=VARCHAR}, 
-      #{noticeDate,jdbcType=DATE}, #{noticeAttachment,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{noticeDate,jdbcType=TIMESTAMP}, #{noticeAttachment,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
       #{classId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="ltd.tomato.model.Notice">
@@ -154,7 +154,7 @@
         #{noticeContent,jdbcType=VARCHAR},
       </if>
       <if test="noticeDate != null">
-        #{noticeDate,jdbcType=DATE},
+        #{noticeDate,jdbcType=TIMESTAMP},
       </if>
       <if test="noticeAttachment != null">
         #{noticeAttachment,jdbcType=VARCHAR},
@@ -186,7 +186,7 @@
         notice_content = #{record.noticeContent,jdbcType=VARCHAR},
       </if>
       <if test="record.noticeDate != null">
-        notice_date = #{record.noticeDate,jdbcType=DATE},
+        notice_date = #{record.noticeDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.noticeAttachment != null">
         notice_attachment = #{record.noticeAttachment,jdbcType=VARCHAR},
@@ -207,7 +207,7 @@
     set notice_id = #{record.noticeId,jdbcType=INTEGER},
       notice_title = #{record.noticeTitle,jdbcType=VARCHAR},
       notice_content = #{record.noticeContent,jdbcType=VARCHAR},
-      notice_date = #{record.noticeDate,jdbcType=DATE},
+      notice_date = #{record.noticeDate,jdbcType=TIMESTAMP},
       notice_attachment = #{record.noticeAttachment,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=INTEGER},
       class_id = #{record.classId,jdbcType=INTEGER}
@@ -225,7 +225,7 @@
         notice_content = #{noticeContent,jdbcType=VARCHAR},
       </if>
       <if test="noticeDate != null">
-        notice_date = #{noticeDate,jdbcType=DATE},
+        notice_date = #{noticeDate,jdbcType=TIMESTAMP},
       </if>
       <if test="noticeAttachment != null">
         notice_attachment = #{noticeAttachment,jdbcType=VARCHAR},
@@ -243,7 +243,7 @@
     update notice
     set notice_title = #{noticeTitle,jdbcType=VARCHAR},
       notice_content = #{noticeContent,jdbcType=VARCHAR},
-      notice_date = #{noticeDate,jdbcType=DATE},
+      notice_date = #{noticeDate,jdbcType=TIMESTAMP},
       notice_attachment = #{noticeAttachment,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},
       class_id = #{classId,jdbcType=INTEGER}

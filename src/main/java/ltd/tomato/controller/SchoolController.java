@@ -21,7 +21,7 @@ public class SchoolController {
 
     @PostMapping(value = "/getSchool")
     @ResponseBody
-    public JSONObject getReplenishList(@RequestParam Map map) throws Exception {
+    public JSONObject getSchool(@RequestParam Map map) throws Exception {
         System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         return JSONObject.parseObject(JSON.toJSONString(schoolService.getSchoolByUserId(obj)));

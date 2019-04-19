@@ -5,8 +5,7 @@ import java.util.Date;
 
 /**
  * homework_view
- *
- * @author
+ * @author 
  */
 public class HomeworkView implements Serializable {
     /**
@@ -258,23 +257,23 @@ public class HomeworkView implements Serializable {
         }
         HomeworkView other = (HomeworkView) that;
         return (this.getCourseName() == null ? other.getCourseName() == null : this.getCourseName().equals(other.getCourseName()))
-                && (this.getCourseId() == null ? other.getCourseId() == null : this.getCourseId().equals(other.getCourseId()))
-                && (this.getTeacherId() == null ? other.getTeacherId() == null : this.getTeacherId().equals(other.getTeacherId()))
-                && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
-                && (this.getUserTel() == null ? other.getUserTel() == null : this.getUserTel().equals(other.getUserTel()))
-                && (this.getUserAddr() == null ? other.getUserAddr() == null : this.getUserAddr().equals(other.getUserAddr()))
-                && (this.getUserEmail() == null ? other.getUserEmail() == null : this.getUserEmail().equals(other.getUserEmail()))
-                && (this.getUserProfile() == null ? other.getUserProfile() == null : this.getUserProfile().equals(other.getUserProfile()))
-                && (this.getUserSignature() == null ? other.getUserSignature() == null : this.getUserSignature().equals(other.getUserSignature()))
-                && (this.getUserSex() == null ? other.getUserSex() == null : this.getUserSex().equals(other.getUserSex()))
-                && (this.getTclassValidation() == null ? other.getTclassValidation() == null : this.getTclassValidation().equals(other.getTclassValidation()))
-                && (this.getHomeworkId() == null ? other.getHomeworkId() == null : this.getHomeworkId().equals(other.getHomeworkId()))
-                && (this.getHomeworkContent() == null ? other.getHomeworkContent() == null : this.getHomeworkContent().equals(other.getHomeworkContent()))
-                && (this.getHomeworkDate() == null ? other.getHomeworkDate() == null : this.getHomeworkDate().equals(other.getHomeworkDate()))
-                && (this.getHomeworkAttachment() == null ? other.getHomeworkAttachment() == null : this.getHomeworkAttachment().equals(other.getHomeworkAttachment()))
-                && (this.getTclassId() == null ? other.getTclassId() == null : this.getTclassId().equals(other.getTclassId()))
-                && (this.getUserBirth() == null ? other.getUserBirth() == null : this.getUserBirth().equals(other.getUserBirth()))
-                && (this.getClassId() == null ? other.getClassId() == null : this.getClassId().equals(other.getClassId()));
+            && (this.getCourseId() == null ? other.getCourseId() == null : this.getCourseId().equals(other.getCourseId()))
+            && (this.getTeacherId() == null ? other.getTeacherId() == null : this.getTeacherId().equals(other.getTeacherId()))
+            && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
+            && (this.getUserTel() == null ? other.getUserTel() == null : this.getUserTel().equals(other.getUserTel()))
+            && (this.getUserAddr() == null ? other.getUserAddr() == null : this.getUserAddr().equals(other.getUserAddr()))
+            && (this.getUserEmail() == null ? other.getUserEmail() == null : this.getUserEmail().equals(other.getUserEmail()))
+            && (this.getUserProfile() == null ? other.getUserProfile() == null : this.getUserProfile().equals(other.getUserProfile()))
+            && (this.getUserSignature() == null ? other.getUserSignature() == null : this.getUserSignature().equals(other.getUserSignature()))
+            && (this.getUserSex() == null ? other.getUserSex() == null : this.getUserSex().equals(other.getUserSex()))
+            && (this.getTclassValidation() == null ? other.getTclassValidation() == null : this.getTclassValidation().equals(other.getTclassValidation()))
+            && (this.getHomeworkId() == null ? other.getHomeworkId() == null : this.getHomeworkId().equals(other.getHomeworkId()))
+            && (this.getHomeworkContent() == null ? other.getHomeworkContent() == null : this.getHomeworkContent().equals(other.getHomeworkContent()))
+            && (this.getHomeworkDate() == null ? other.getHomeworkDate() == null : this.getHomeworkDate().equals(other.getHomeworkDate()))
+            && (this.getHomeworkAttachment() == null ? other.getHomeworkAttachment() == null : this.getHomeworkAttachment().equals(other.getHomeworkAttachment()))
+            && (this.getTclassId() == null ? other.getTclassId() == null : this.getTclassId().equals(other.getTclassId()))
+            && (this.getUserBirth() == null ? other.getUserBirth() == null : this.getUserBirth().equals(other.getUserBirth()))
+            && (this.getClassId() == null ? other.getClassId() == null : this.getClassId().equals(other.getClassId()));
     }
 
     @Override

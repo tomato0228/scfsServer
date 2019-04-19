@@ -2,7 +2,6 @@ package ltd.tomato.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class HomeworkExample {
@@ -124,32 +123,6 @@ public class HomeworkExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andHomeworkIdIsNull() {
@@ -293,52 +266,52 @@ public class HomeworkExample {
         }
 
         public Criteria andHomeworkDateEqualTo(Date value) {
-            addCriterionForJDBCDate("homework_date =", value, "homeworkDate");
+            addCriterion("homework_date =", value, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("homework_date <>", value, "homeworkDate");
+            addCriterion("homework_date <>", value, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateGreaterThan(Date value) {
-            addCriterionForJDBCDate("homework_date >", value, "homeworkDate");
+            addCriterion("homework_date >", value, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("homework_date >=", value, "homeworkDate");
+            addCriterion("homework_date >=", value, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateLessThan(Date value) {
-            addCriterionForJDBCDate("homework_date <", value, "homeworkDate");
+            addCriterion("homework_date <", value, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("homework_date <=", value, "homeworkDate");
+            addCriterion("homework_date <=", value, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateIn(List<Date> values) {
-            addCriterionForJDBCDate("homework_date in", values, "homeworkDate");
+            addCriterion("homework_date in", values, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("homework_date not in", values, "homeworkDate");
+            addCriterion("homework_date not in", values, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("homework_date between", value1, value2, "homeworkDate");
+            addCriterion("homework_date between", value1, value2, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("homework_date not between", value1, value2, "homeworkDate");
+            addCriterion("homework_date not between", value1, value2, "homeworkDate");
             return (Criteria) this;
         }
 

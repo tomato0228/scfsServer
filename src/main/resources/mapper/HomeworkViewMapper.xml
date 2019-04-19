@@ -15,7 +15,7 @@
     <result column="tclass_validation" jdbcType="CHAR" property="tclassValidation" />
     <result column="homework_id" jdbcType="INTEGER" property="homeworkId" />
     <result column="homework_content" jdbcType="VARCHAR" property="homeworkContent" />
-    <result column="homework_date" jdbcType="DATE" property="homeworkDate" />
+    <result column="homework_date" jdbcType="TIMESTAMP" property="homeworkDate" />
     <result column="homework_attachment" jdbcType="VARCHAR" property="homeworkAttachment" />
     <result column="tclass_id" jdbcType="INTEGER" property="tclassId" />
     <result column="user_birth" jdbcType="DATE" property="userBirth" />
@@ -123,7 +123,7 @@
       #{userName,jdbcType=VARCHAR}, #{userTel,jdbcType=VARCHAR}, #{userAddr,jdbcType=VARCHAR}, 
       #{userEmail,jdbcType=VARCHAR}, #{userProfile,jdbcType=VARCHAR}, #{userSignature,jdbcType=VARCHAR}, 
       #{userSex,jdbcType=CHAR}, #{tclassValidation,jdbcType=CHAR}, #{homeworkContent,jdbcType=VARCHAR}, 
-      #{homeworkDate,jdbcType=DATE}, #{homeworkAttachment,jdbcType=VARCHAR}, #{tclassId,jdbcType=INTEGER}, 
+      #{homeworkDate,jdbcType=TIMESTAMP}, #{homeworkAttachment,jdbcType=VARCHAR}, #{tclassId,jdbcType=INTEGER}, 
       #{userBirth,jdbcType=DATE}, #{classId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="homework_id" keyProperty="homeworkId" parameterType="ltd.tomato.model.HomeworkView" useGeneratedKeys="true">
@@ -219,7 +219,7 @@
         #{homeworkContent,jdbcType=VARCHAR},
       </if>
       <if test="homeworkDate != null">
-        #{homeworkDate,jdbcType=DATE},
+        #{homeworkDate,jdbcType=TIMESTAMP},
       </if>
       <if test="homeworkAttachment != null">
         #{homeworkAttachment,jdbcType=VARCHAR},
@@ -284,7 +284,7 @@
         homework_content = #{record.homeworkContent,jdbcType=VARCHAR},
       </if>
       <if test="record.homeworkDate != null">
-        homework_date = #{record.homeworkDate,jdbcType=DATE},
+        homework_date = #{record.homeworkDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.homeworkAttachment != null">
         homework_attachment = #{record.homeworkAttachment,jdbcType=VARCHAR},
@@ -318,7 +318,7 @@
       tclass_validation = #{record.tclassValidation,jdbcType=CHAR},
       homework_id = #{record.homeworkId,jdbcType=INTEGER},
       homework_content = #{record.homeworkContent,jdbcType=VARCHAR},
-      homework_date = #{record.homeworkDate,jdbcType=DATE},
+      homework_date = #{record.homeworkDate,jdbcType=TIMESTAMP},
       homework_attachment = #{record.homeworkAttachment,jdbcType=VARCHAR},
       tclass_id = #{record.tclassId,jdbcType=INTEGER},
       user_birth = #{record.userBirth,jdbcType=DATE},

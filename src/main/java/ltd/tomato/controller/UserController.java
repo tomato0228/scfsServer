@@ -22,7 +22,7 @@ public class UserController {
 
     @PostMapping(value = "/login")
     @ResponseBody
-    public JSONObject getReplenishList(@RequestParam Map map) throws Exception {
+    public JSONObject login(@RequestParam Map map) throws Exception {
         System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";

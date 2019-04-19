@@ -2,7 +2,6 @@ package ltd.tomato.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class NoticeExample {
@@ -124,32 +123,6 @@ public class NoticeExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andNoticeIdIsNull() {
@@ -363,52 +336,52 @@ public class NoticeExample {
         }
 
         public Criteria andNoticeDateEqualTo(Date value) {
-            addCriterionForJDBCDate("notice_date =", value, "noticeDate");
+            addCriterion("notice_date =", value, "noticeDate");
             return (Criteria) this;
         }
 
         public Criteria andNoticeDateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("notice_date <>", value, "noticeDate");
+            addCriterion("notice_date <>", value, "noticeDate");
             return (Criteria) this;
         }
 
         public Criteria andNoticeDateGreaterThan(Date value) {
-            addCriterionForJDBCDate("notice_date >", value, "noticeDate");
+            addCriterion("notice_date >", value, "noticeDate");
             return (Criteria) this;
         }
 
         public Criteria andNoticeDateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("notice_date >=", value, "noticeDate");
+            addCriterion("notice_date >=", value, "noticeDate");
             return (Criteria) this;
         }
 
         public Criteria andNoticeDateLessThan(Date value) {
-            addCriterionForJDBCDate("notice_date <", value, "noticeDate");
+            addCriterion("notice_date <", value, "noticeDate");
             return (Criteria) this;
         }
 
         public Criteria andNoticeDateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("notice_date <=", value, "noticeDate");
+            addCriterion("notice_date <=", value, "noticeDate");
             return (Criteria) this;
         }
 
         public Criteria andNoticeDateIn(List<Date> values) {
-            addCriterionForJDBCDate("notice_date in", values, "noticeDate");
+            addCriterion("notice_date in", values, "noticeDate");
             return (Criteria) this;
         }
 
         public Criteria andNoticeDateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("notice_date not in", values, "noticeDate");
+            addCriterion("notice_date not in", values, "noticeDate");
             return (Criteria) this;
         }
 
         public Criteria andNoticeDateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("notice_date between", value1, value2, "noticeDate");
+            addCriterion("notice_date between", value1, value2, "noticeDate");
             return (Criteria) this;
         }
 
         public Criteria andNoticeDateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("notice_date not between", value1, value2, "noticeDate");
+            addCriterion("notice_date not between", value1, value2, "noticeDate");
             return (Criteria) this;
         }
 

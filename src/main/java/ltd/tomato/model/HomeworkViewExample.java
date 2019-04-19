@@ -1043,52 +1043,52 @@ public class HomeworkViewExample {
         }
 
         public Criteria andHomeworkDateEqualTo(Date value) {
-            addCriterionForJDBCDate("homework_date =", value, "homeworkDate");
+            addCriterion("homework_date =", value, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("homework_date <>", value, "homeworkDate");
+            addCriterion("homework_date <>", value, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateGreaterThan(Date value) {
-            addCriterionForJDBCDate("homework_date >", value, "homeworkDate");
+            addCriterion("homework_date >", value, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("homework_date >=", value, "homeworkDate");
+            addCriterion("homework_date >=", value, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateLessThan(Date value) {
-            addCriterionForJDBCDate("homework_date <", value, "homeworkDate");
+            addCriterion("homework_date <", value, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("homework_date <=", value, "homeworkDate");
+            addCriterion("homework_date <=", value, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateIn(List<Date> values) {
-            addCriterionForJDBCDate("homework_date in", values, "homeworkDate");
+            addCriterion("homework_date in", values, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("homework_date not in", values, "homeworkDate");
+            addCriterion("homework_date not in", values, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("homework_date between", value1, value2, "homeworkDate");
+            addCriterion("homework_date between", value1, value2, "homeworkDate");
             return (Criteria) this;
         }
 
         public Criteria andHomeworkDateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("homework_date not between", value1, value2, "homeworkDate");
+            addCriterion("homework_date not between", value1, value2, "homeworkDate");
             return (Criteria) this;
         }
 
