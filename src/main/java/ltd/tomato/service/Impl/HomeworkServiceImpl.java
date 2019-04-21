@@ -152,11 +152,11 @@ public class HomeworkServiceImpl implements HomeworkService {
         try {
             if (object.getInteger("homeworkId") != null) {
                 Homework homework = homeworkMapper.selectByPrimaryKey(object.getInteger("homeworkId"));
-                homework.setHomeworkContent(object.getString("homeworkContent"));
-                if (object.getString("homeworkAttachment") != null) {
+                if (!StringUtil.isNULLOREmpty(object.getString("homeworkContent")) && !homework.getHomeworkContent().equals(object.getString("homeworkContent"))){
+                    homework.setHomeworkContent(object.getString("homeworkContent"));
+                }
+                if (!StringUtil.isNULLOREmpty(object.getString("homeworkAttachment")) && !homework.getHomeworkAttachment().equals(object.getString("homeworkAttachment"))){
                     homework.setHomeworkAttachment(object.getString("homeworkAttachment"));
-                } else {
-                    homework.setHomeworkAttachment("");
                 }
                 status = homeworkMapper.updateByPrimaryKeySelective(homework);
             }
