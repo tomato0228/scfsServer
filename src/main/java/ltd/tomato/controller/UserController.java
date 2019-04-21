@@ -26,6 +26,7 @@ public class UserController {
         System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-        return JSONObject.parseObject(JSON.toJSONString(userService.getUserByLogin(obj), SerializerFeature.WriteDateUseDateFormat));
+        return JSONObject.parseObject(JSON.toJSONString(userService.getUserByLogin(obj), SerializerFeature.WriteMapNullValue,
+                SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
     }
 }

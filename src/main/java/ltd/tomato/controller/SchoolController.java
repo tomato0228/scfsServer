@@ -3,6 +3,7 @@ package ltd.tomato.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import ltd.tomato.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,9 @@ public class SchoolController {
     public JSONObject getSchool(@RequestParam Map map) throws Exception {
         System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
-        return JSONObject.parseObject(JSON.toJSONString(schoolService.getSchoolByUserId(obj)));
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+        return JSONObject.parseObject(JSON.toJSONString(schoolService.getSchoolByUserId(obj), SerializerFeature.WriteMapNullValue,
+                SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
     }
 
 }
