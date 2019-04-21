@@ -8,8 +8,9 @@ import ltd.tomato.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
+
+//import java.text.SimpleDateFormat;
 
 @Service("Homework")
 public class HomeworkServiceImpl implements HomeworkService {
@@ -31,12 +32,10 @@ public class HomeworkServiceImpl implements HomeworkService {
     public Map<String, Object> getHomeworkByUser(JSONObject object) throws Exception {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
-
         List<HomeworkView> homeworkViews = new ArrayList<>(16);
         try {
             HomeworkViewExample homeworkViewExample = new HomeworkViewExample();
             HomeworkViewExample.Criteria criteria = homeworkViewExample.createCriteria();
-            //查询条件
             if (object.getInteger("userId") != null) {
                 User user = userMapper.selectByPrimaryKey(object.getInteger("userId"));
                 if (user.getUserType().equals("教师")) {
@@ -77,12 +76,11 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
-    public Map<String, Object> addHomeworkByTeacher(JSONObject object) throws Exception {
+    public Map<String, Object> addHomeworkByTeacher(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
         int status = 0;
         try {
-            //查询条件
             if (object.getInteger("userId") != null && object.getInteger("classId") != null && object.getInteger("courseId") != null && !StringUtil.isNULLOREmpty(object.getString("homeworkContent"))) {
                 User user = userMapper.selectByPrimaryKey(object.getInteger("userId"));
                 if (user.getUserType().equals("教师")) {
@@ -102,8 +100,8 @@ public class HomeworkServiceImpl implements HomeworkService {
                         homework.setHomeworkAttachment(object.getString("homeworkAttachment"));
                     }
                     homework.setHomeworkDate(new Date());
-                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-                    System.out.println(df.format(homework.getHomeworkDate()));// new Date()为获取当前系统时间
+//                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+//                    System.out.println(df.format(homework.getHomeworkDate()));// new Date()为获取当前系统时间
                     status = homeworkMapper.insertSelective(homework);
                 }
             }
@@ -122,7 +120,7 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
-    public Map<String, Object> deleteHomeworkByTeacher(JSONObject object) throws Exception {
+    public Map<String, Object> deleteHomeworkByTeacher(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
         int status = 0;
@@ -145,17 +143,17 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
-    public Map<String, Object> editHomeworkByTeacher(JSONObject object) throws Exception {
+    public Map<String, Object> editHomeworkByTeacher(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
         int status = 0;
         try {
             if (object.getInteger("homeworkId") != null) {
                 Homework homework = homeworkMapper.selectByPrimaryKey(object.getInteger("homeworkId"));
-                if (!StringUtil.isNULLOREmpty(object.getString("homeworkContent")) && !homework.getHomeworkContent().equals(object.getString("homeworkContent"))){
+                if (!StringUtil.isNULLOREmpty(object.getString("homeworkContent")) && !homework.getHomeworkContent().equals(object.getString("homeworkContent"))) {
                     homework.setHomeworkContent(object.getString("homeworkContent"));
                 }
-                if (!StringUtil.isNULLOREmpty(object.getString("homeworkAttachment")) && !homework.getHomeworkAttachment().equals(object.getString("homeworkAttachment"))){
+                if (!StringUtil.isNULLOREmpty(object.getString("homeworkAttachment")) && !homework.getHomeworkAttachment().equals(object.getString("homeworkAttachment"))) {
                     homework.setHomeworkAttachment(object.getString("homeworkAttachment"));
                 }
                 status = homeworkMapper.updateByPrimaryKeySelective(homework);
