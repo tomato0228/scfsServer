@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import ltd.tomato.mapper.*;
 import ltd.tomato.model.*;
 import ltd.tomato.service.HomeworkService;
+import ltd.tomato.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -82,7 +83,7 @@ public class HomeworkServiceImpl implements HomeworkService {
         int status = 0;
         try {
             //查询条件
-            if (object.getInteger("userId") != null && object.getInteger("classId") != null && object.getInteger("courseId") != null) {
+            if (object.getInteger("userId") != null && object.getInteger("classId") != null && object.getInteger("courseId") != null && !StringUtil.isNULLOREmpty(object.getString("homeworkContent"))) {
                 User user = userMapper.selectByPrimaryKey(object.getInteger("userId"));
                 if (user.getUserType().equals("教师")) {
                     TclassExample tclassExample = new TclassExample();
@@ -95,10 +96,10 @@ public class HomeworkServiceImpl implements HomeworkService {
                     Homework homework = new Homework();
                     homework.setTclassId(tclass.getTclassId());
                     homework.setHomeworkContent(object.getString("homeworkContent"));
-                    if (object.getString("homeworkAttachment") != null) {
-                        homework.setHomeworkAttachment(object.getString("homeworkAttachment"));
-                    } else {
+                    if (StringUtil.isNULLOREmpty(object.getString("homeworkAttachment"))) {
                         homework.setHomeworkAttachment("");
+                    } else {
+                        homework.setHomeworkAttachment(object.getString("homeworkAttachment"));
                     }
                     homework.setHomeworkDate(new Date());
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
