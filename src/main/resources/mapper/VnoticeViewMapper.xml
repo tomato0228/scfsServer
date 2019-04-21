@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.tomato.mapper.VnoticeViewMapper">
+  <resultMap id="BaseResultMap" type="ltd.tomato.model.VnoticeView">
+    <result column="vnotice_id" jdbcType="INTEGER" property="vnoticeId" />
+    <result column="vnotice_flag" jdbcType="CHAR" property="vnoticeFlag" />
+    <result column="notice_id" jdbcType="INTEGER" property="noticeId" />
+    <result column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="parents_id" jdbcType="INTEGER" property="parentsId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_sex" jdbcType="CHAR" property="userSex" />
+    <result column="user_birth" jdbcType="DATE" property="userBirth" />
+    <result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+    <result column="user_addr" jdbcType="VARCHAR" property="userAddr" />
+    <result column="user_type" jdbcType="CHAR" property="userType" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_profile" jdbcType="VARCHAR" property="userProfile" />
+    <result column="user_signature" jdbcType="VARCHAR" property="userSignature" />
+    <result column="parents_name" jdbcType="VARCHAR" property="parentsName" />
+    <result column="parents_sex" jdbcType="CHAR" property="parentsSex" />
+    <result column="parents_birth" jdbcType="DATE" property="parentsBirth" />
+    <result column="parents_tel" jdbcType="VARCHAR" property="parentsTel" />
+    <result column="parents_addr" jdbcType="VARCHAR" property="parentsAddr" />
+    <result column="parents_type" jdbcType="CHAR" property="parentsType" />
+    <result column="parents_email" jdbcType="VARCHAR" property="parentsEmail" />
+    <result column="parents_profile" jdbcType="VARCHAR" property="parentsProfile" />
+    <result column="parents_signature" jdbcType="VARCHAR" property="parentsSignature" />
+    <result column="user_date" jdbcType="TIMESTAMP" property="userDate" />
+    <result column="parents_relation" jdbcType="CHAR" property="parentsRelation" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    vnotice_id, vnotice_flag, notice_id, student_id, parents_id, user_name, user_sex, 
+    user_birth, user_tel, user_addr, user_type, user_email, user_profile, user_signature, 
+    parents_name, parents_sex, parents_birth, parents_tel, parents_addr, parents_type, 
+    parents_email, parents_profile, parents_signature, user_date, parents_relation
+  </sql>
+  <select id="selectByExample" parameterType="ltd.tomato.model.VnoticeViewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vnotice_view
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="ltd.tomato.model.VnoticeViewExample">
+    delete from vnotice_view
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="vnotice_id" keyProperty="vnoticeId" parameterType="ltd.tomato.model.VnoticeView" useGeneratedKeys="true">
+    insert into vnotice_view (vnotice_flag, notice_id, student_id, 
+      parents_id, user_name, user_sex, 
+      user_birth, user_tel, user_addr, 
+      user_type, user_email, user_profile, 
+      user_signature, parents_name, parents_sex, 
+      parents_birth, parents_tel, parents_addr, 
+      parents_type, parents_email, parents_profile, 
+      parents_signature, user_date, parents_relation
+      )
+    values (#{vnoticeFlag,jdbcType=CHAR}, #{noticeId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, 
+      #{parentsId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userSex,jdbcType=CHAR}, 
+      #{userBirth,jdbcType=DATE}, #{userTel,jdbcType=VARCHAR}, #{userAddr,jdbcType=VARCHAR}, 
+      #{userType,jdbcType=CHAR}, #{userEmail,jdbcType=VARCHAR}, #{userProfile,jdbcType=VARCHAR}, 
+      #{userSignature,jdbcType=VARCHAR}, #{parentsName,jdbcType=VARCHAR}, #{parentsSex,jdbcType=CHAR}, 
+      #{parentsBirth,jdbcType=DATE}, #{parentsTel,jdbcType=VARCHAR}, #{parentsAddr,jdbcType=VARCHAR}, 
+      #{parentsType,jdbcType=CHAR}, #{parentsEmail,jdbcType=VARCHAR}, #{parentsProfile,jdbcType=VARCHAR}, 
+      #{parentsSignature,jdbcType=VARCHAR}, #{userDate,jdbcType=TIMESTAMP}, #{parentsRelation,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="vnotice_id" keyProperty="vnoticeId" parameterType="ltd.tomato.model.VnoticeView" useGeneratedKeys="true">
+    insert into vnotice_view
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vnoticeFlag != null">
+        vnotice_flag,
+      </if>
+      <if test="noticeId != null">
+        notice_id,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="parentsId != null">
+        parents_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userSex != null">
+        user_sex,
+      </if>
+      <if test="userBirth != null">
+        user_birth,
+      </if>
+      <if test="userTel != null">
+        user_tel,
+      </if>
+      <if test="userAddr != null">
+        user_addr,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="userProfile != null">
+        user_profile,
+      </if>
+      <if test="userSignature != null">
+        user_signature,
+      </if>
+      <if test="parentsName != null">
+        parents_name,
+      </if>
+      <if test="parentsSex != null">
+        parents_sex,
+      </if>
+      <if test="parentsBirth != null">
+        parents_birth,
+      </if>
+      <if test="parentsTel != null">
+        parents_tel,
+      </if>
+      <if test="parentsAddr != null">
+        parents_addr,
+      </if>
+      <if test="parentsType != null">
+        parents_type,
+      </if>
+      <if test="parentsEmail != null">
+        parents_email,
+      </if>
+      <if test="parentsProfile != null">
+        parents_profile,
+      </if>
+      <if test="parentsSignature != null">
+        parents_signature,
+      </if>
+      <if test="userDate != null">
+        user_date,
+      </if>
+      <if test="parentsRelation != null">
+        parents_relation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vnoticeFlag != null">
+        #{vnoticeFlag,jdbcType=CHAR},
+      </if>
+      <if test="noticeId != null">
+        #{noticeId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="parentsId != null">
+        #{parentsId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=CHAR},
+      </if>
+      <if test="userBirth != null">
+        #{userBirth,jdbcType=DATE},
+      </if>
+      <if test="userTel != null">
+        #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddr != null">
+        #{userAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=CHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfile != null">
+        #{userProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="userSignature != null">
+        #{userSignature,jdbcType=VARCHAR},
+      </if>
+      <if test="parentsName != null">
+        #{parentsName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentsSex != null">
+        #{parentsSex,jdbcType=CHAR},
+      </if>
+      <if test="parentsBirth != null">
+        #{parentsBirth,jdbcType=DATE},
+      </if>
+      <if test="parentsTel != null">
+        #{parentsTel,jdbcType=VARCHAR},
+      </if>
+      <if test="parentsAddr != null">
+        #{parentsAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="parentsType != null">
+        #{parentsType,jdbcType=CHAR},
+      </if>
+      <if test="parentsEmail != null">
+        #{parentsEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="parentsProfile != null">
+        #{parentsProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="parentsSignature != null">
+        #{parentsSignature,jdbcType=VARCHAR},
+      </if>
+      <if test="userDate != null">
+        #{userDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentsRelation != null">
+        #{parentsRelation,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ltd.tomato.model.VnoticeViewExample" resultType="java.lang.Long">
+    select count(*) from vnotice_view
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update vnotice_view
+    <set>
+      <if test="record.vnoticeId != null">
+        vnotice_id = #{record.vnoticeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.vnoticeFlag != null">
+        vnotice_flag = #{record.vnoticeFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.noticeId != null">
+        notice_id = #{record.noticeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentId != null">
+        student_id = #{record.studentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentsId != null">
+        parents_id = #{record.parentsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSex != null">
+        user_sex = #{record.userSex,jdbcType=CHAR},
+      </if>
+      <if test="record.userBirth != null">
+        user_birth = #{record.userBirth,jdbcType=DATE},
+      </if>
+      <if test="record.userTel != null">
+        user_tel = #{record.userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAddr != null">
+        user_addr = #{record.userAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userType != null">
+        user_type = #{record.userType,jdbcType=CHAR},
+      </if>
+      <if test="record.userEmail != null">
+        user_email = #{record.userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userProfile != null">
+        user_profile = #{record.userProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSignature != null">
+        user_signature = #{record.userSignature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentsName != null">
+        parents_name = #{record.parentsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentsSex != null">
+        parents_sex = #{record.parentsSex,jdbcType=CHAR},
+      </if>
+      <if test="record.parentsBirth != null">
+        parents_birth = #{record.parentsBirth,jdbcType=DATE},
+      </if>
+      <if test="record.parentsTel != null">
+        parents_tel = #{record.parentsTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentsAddr != null">
+        parents_addr = #{record.parentsAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentsType != null">
+        parents_type = #{record.parentsType,jdbcType=CHAR},
+      </if>
+      <if test="record.parentsEmail != null">
+        parents_email = #{record.parentsEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentsProfile != null">
+        parents_profile = #{record.parentsProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentsSignature != null">
+        parents_signature = #{record.parentsSignature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userDate != null">
+        user_date = #{record.userDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.parentsRelation != null">
+        parents_relation = #{record.parentsRelation,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update vnotice_view
+    set vnotice_id = #{record.vnoticeId,jdbcType=INTEGER},
+      vnotice_flag = #{record.vnoticeFlag,jdbcType=CHAR},
+      notice_id = #{record.noticeId,jdbcType=INTEGER},
+      student_id = #{record.studentId,jdbcType=INTEGER},
+      parents_id = #{record.parentsId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_sex = #{record.userSex,jdbcType=CHAR},
+      user_birth = #{record.userBirth,jdbcType=DATE},
+      user_tel = #{record.userTel,jdbcType=VARCHAR},
+      user_addr = #{record.userAddr,jdbcType=VARCHAR},
+      user_type = #{record.userType,jdbcType=CHAR},
+      user_email = #{record.userEmail,jdbcType=VARCHAR},
+      user_profile = #{record.userProfile,jdbcType=VARCHAR},
+      user_signature = #{record.userSignature,jdbcType=VARCHAR},
+      parents_name = #{record.parentsName,jdbcType=VARCHAR},
+      parents_sex = #{record.parentsSex,jdbcType=CHAR},
+      parents_birth = #{record.parentsBirth,jdbcType=DATE},
+      parents_tel = #{record.parentsTel,jdbcType=VARCHAR},
+      parents_addr = #{record.parentsAddr,jdbcType=VARCHAR},
+      parents_type = #{record.parentsType,jdbcType=CHAR},
+      parents_email = #{record.parentsEmail,jdbcType=VARCHAR},
+      parents_profile = #{record.parentsProfile,jdbcType=VARCHAR},
+      parents_signature = #{record.parentsSignature,jdbcType=VARCHAR},
+      user_date = #{record.userDate,jdbcType=TIMESTAMP},
+      parents_relation = #{record.parentsRelation,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

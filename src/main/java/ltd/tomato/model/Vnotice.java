@@ -13,9 +13,9 @@ public class Vnotice implements Serializable {
     private Integer vnoticeId;
 
     /**
-     * 是否完成任务
+     * 是否查看
      */
-    private String vnoticeFinish;
+    private String vnoticeFlag;
 
     /**
      * 通知ID
@@ -42,12 +42,12 @@ public class Vnotice implements Serializable {
         this.vnoticeId = vnoticeId;
     }
 
-    public String getVnoticeFinish() {
-        return vnoticeFinish;
+    public String getVnoticeFlag() {
+        return vnoticeFlag;
     }
 
-    public void setVnoticeFinish(String vnoticeFinish) {
-        this.vnoticeFinish = vnoticeFinish;
+    public void setVnoticeFlag(String vnoticeFlag) {
+        this.vnoticeFlag = vnoticeFlag;
     }
 
     public Integer getNoticeId() {
@@ -87,7 +87,7 @@ public class Vnotice implements Serializable {
         }
         Vnotice other = (Vnotice) that;
         return (this.getVnoticeId() == null ? other.getVnoticeId() == null : this.getVnoticeId().equals(other.getVnoticeId()))
-            && (this.getVnoticeFinish() == null ? other.getVnoticeFinish() == null : this.getVnoticeFinish().equals(other.getVnoticeFinish()))
+            && (this.getVnoticeFlag() == null ? other.getVnoticeFlag() == null : this.getVnoticeFlag().equals(other.getVnoticeFlag()))
             && (this.getNoticeId() == null ? other.getNoticeId() == null : this.getNoticeId().equals(other.getNoticeId()))
             && (this.getStudentId() == null ? other.getStudentId() == null : this.getStudentId().equals(other.getStudentId()))
             && (this.getParentsId() == null ? other.getParentsId() == null : this.getParentsId().equals(other.getParentsId()));
@@ -98,7 +98,7 @@ public class Vnotice implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getVnoticeId() == null) ? 0 : getVnoticeId().hashCode());
-        result = prime * result + ((getVnoticeFinish() == null) ? 0 : getVnoticeFinish().hashCode());
+        result = prime * result + ((getVnoticeFlag() == null) ? 0 : getVnoticeFlag().hashCode());
         result = prime * result + ((getNoticeId() == null) ? 0 : getNoticeId().hashCode());
         result = prime * result + ((getStudentId() == null) ? 0 : getStudentId().hashCode());
         result = prime * result + ((getParentsId() == null) ? 0 : getParentsId().hashCode());
@@ -112,7 +112,7 @@ public class Vnotice implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", vnoticeId=").append(vnoticeId);
-        sb.append(", vnoticeFinish=").append(vnoticeFinish);
+        sb.append(", vnoticeFlag=").append(vnoticeFlag);
         sb.append(", noticeId=").append(noticeId);
         sb.append(", studentId=").append(studentId);
         sb.append(", parentsId=").append(parentsId);

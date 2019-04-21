@@ -3,7 +3,7 @@
 <mapper namespace="ltd.tomato.mapper.VnoticeMapper">
   <resultMap id="BaseResultMap" type="ltd.tomato.model.Vnotice">
     <id column="vnotice_id" jdbcType="INTEGER" property="vnoticeId" />
-    <result column="vnotice_finish" jdbcType="CHAR" property="vnoticeFinish" />
+    <result column="vnotice_flag" jdbcType="CHAR" property="vnoticeFlag" />
     <result column="notice_id" jdbcType="INTEGER" property="noticeId" />
     <result column="student_id" jdbcType="INTEGER" property="studentId" />
     <result column="parents_id" jdbcType="INTEGER" property="parentsId" />
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    vnotice_id, vnotice_finish, notice_id, student_id, parents_id
+    vnotice_id, vnotice_flag, notice_id, student_id, parents_id
   </sql>
   <select id="selectByExample" parameterType="ltd.tomato.model.VnoticeExample" resultMap="BaseResultMap">
     select
@@ -108,9 +108,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="ltd.tomato.model.Vnotice">
-    insert into vnotice (vnotice_id, vnotice_finish, notice_id, 
+    insert into vnotice (vnotice_id, vnotice_flag, notice_id, 
       student_id, parents_id)
-    values (#{vnoticeId,jdbcType=INTEGER}, #{vnoticeFinish,jdbcType=CHAR}, #{noticeId,jdbcType=INTEGER}, 
+    values (#{vnoticeId,jdbcType=INTEGER}, #{vnoticeFlag,jdbcType=CHAR}, #{noticeId,jdbcType=INTEGER}, 
       #{studentId,jdbcType=INTEGER}, #{parentsId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="ltd.tomato.model.Vnotice">
@@ -119,8 +119,8 @@
       <if test="vnoticeId != null">
         vnotice_id,
       </if>
-      <if test="vnoticeFinish != null">
-        vnotice_finish,
+      <if test="vnoticeFlag != null">
+        vnotice_flag,
       </if>
       <if test="noticeId != null">
         notice_id,
@@ -136,8 +136,8 @@
       <if test="vnoticeId != null">
         #{vnoticeId,jdbcType=INTEGER},
       </if>
-      <if test="vnoticeFinish != null">
-        #{vnoticeFinish,jdbcType=CHAR},
+      <if test="vnoticeFlag != null">
+        #{vnoticeFlag,jdbcType=CHAR},
       </if>
       <if test="noticeId != null">
         #{noticeId,jdbcType=INTEGER},
@@ -162,8 +162,8 @@
       <if test="record.vnoticeId != null">
         vnotice_id = #{record.vnoticeId,jdbcType=INTEGER},
       </if>
-      <if test="record.vnoticeFinish != null">
-        vnotice_finish = #{record.vnoticeFinish,jdbcType=CHAR},
+      <if test="record.vnoticeFlag != null">
+        vnotice_flag = #{record.vnoticeFlag,jdbcType=CHAR},
       </if>
       <if test="record.noticeId != null">
         notice_id = #{record.noticeId,jdbcType=INTEGER},
@@ -182,7 +182,7 @@
   <update id="updateByExample" parameterType="map">
     update vnotice
     set vnotice_id = #{record.vnoticeId,jdbcType=INTEGER},
-      vnotice_finish = #{record.vnoticeFinish,jdbcType=CHAR},
+      vnotice_flag = #{record.vnoticeFlag,jdbcType=CHAR},
       notice_id = #{record.noticeId,jdbcType=INTEGER},
       student_id = #{record.studentId,jdbcType=INTEGER},
       parents_id = #{record.parentsId,jdbcType=INTEGER}
@@ -193,8 +193,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="ltd.tomato.model.Vnotice">
     update vnotice
     <set>
-      <if test="vnoticeFinish != null">
-        vnotice_finish = #{vnoticeFinish,jdbcType=CHAR},
+      <if test="vnoticeFlag != null">
+        vnotice_flag = #{vnoticeFlag,jdbcType=CHAR},
       </if>
       <if test="noticeId != null">
         notice_id = #{noticeId,jdbcType=INTEGER},
@@ -210,7 +210,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="ltd.tomato.model.Vnotice">
     update vnotice
-    set vnotice_finish = #{vnoticeFinish,jdbcType=CHAR},
+    set vnotice_flag = #{vnoticeFlag,jdbcType=CHAR},
       notice_id = #{noticeId,jdbcType=INTEGER},
       student_id = #{studentId,jdbcType=INTEGER},
       parents_id = #{parentsId,jdbcType=INTEGER}

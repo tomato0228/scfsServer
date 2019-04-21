@@ -184,73 +184,73 @@ public class VnoticeExample {
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishIsNull() {
-            addCriterion("vnotice_finish is null");
+        public Criteria andVnoticeFlagIsNull() {
+            addCriterion("vnotice_flag is null");
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishIsNotNull() {
-            addCriterion("vnotice_finish is not null");
+        public Criteria andVnoticeFlagIsNotNull() {
+            addCriterion("vnotice_flag is not null");
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishEqualTo(String value) {
-            addCriterion("vnotice_finish =", value, "vnoticeFinish");
+        public Criteria andVnoticeFlagEqualTo(String value) {
+            addCriterion("vnotice_flag =", value, "vnoticeFlag");
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishNotEqualTo(String value) {
-            addCriterion("vnotice_finish <>", value, "vnoticeFinish");
+        public Criteria andVnoticeFlagNotEqualTo(String value) {
+            addCriterion("vnotice_flag <>", value, "vnoticeFlag");
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishGreaterThan(String value) {
-            addCriterion("vnotice_finish >", value, "vnoticeFinish");
+        public Criteria andVnoticeFlagGreaterThan(String value) {
+            addCriterion("vnotice_flag >", value, "vnoticeFlag");
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishGreaterThanOrEqualTo(String value) {
-            addCriterion("vnotice_finish >=", value, "vnoticeFinish");
+        public Criteria andVnoticeFlagGreaterThanOrEqualTo(String value) {
+            addCriterion("vnotice_flag >=", value, "vnoticeFlag");
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishLessThan(String value) {
-            addCriterion("vnotice_finish <", value, "vnoticeFinish");
+        public Criteria andVnoticeFlagLessThan(String value) {
+            addCriterion("vnotice_flag <", value, "vnoticeFlag");
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishLessThanOrEqualTo(String value) {
-            addCriterion("vnotice_finish <=", value, "vnoticeFinish");
+        public Criteria andVnoticeFlagLessThanOrEqualTo(String value) {
+            addCriterion("vnotice_flag <=", value, "vnoticeFlag");
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishLike(String value) {
-            addCriterion("vnotice_finish like", value, "vnoticeFinish");
+        public Criteria andVnoticeFlagLike(String value) {
+            addCriterion("vnotice_flag like", value, "vnoticeFlag");
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishNotLike(String value) {
-            addCriterion("vnotice_finish not like", value, "vnoticeFinish");
+        public Criteria andVnoticeFlagNotLike(String value) {
+            addCriterion("vnotice_flag not like", value, "vnoticeFlag");
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishIn(List<String> values) {
-            addCriterion("vnotice_finish in", values, "vnoticeFinish");
+        public Criteria andVnoticeFlagIn(List<String> values) {
+            addCriterion("vnotice_flag in", values, "vnoticeFlag");
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishNotIn(List<String> values) {
-            addCriterion("vnotice_finish not in", values, "vnoticeFinish");
+        public Criteria andVnoticeFlagNotIn(List<String> values) {
+            addCriterion("vnotice_flag not in", values, "vnoticeFlag");
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishBetween(String value1, String value2) {
-            addCriterion("vnotice_finish between", value1, value2, "vnoticeFinish");
+        public Criteria andVnoticeFlagBetween(String value1, String value2) {
+            addCriterion("vnotice_flag between", value1, value2, "vnoticeFlag");
             return (Criteria) this;
         }
 
-        public Criteria andVnoticeFinishNotBetween(String value1, String value2) {
-            addCriterion("vnotice_finish not between", value1, value2, "vnoticeFinish");
+        public Criteria andVnoticeFlagNotBetween(String value1, String value2) {
+            addCriterion("vnotice_flag not between", value1, value2, "vnoticeFlag");
             return (Criteria) this;
         }
 
