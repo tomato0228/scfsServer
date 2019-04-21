@@ -26,7 +26,8 @@ public class HomeworkController {
         System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-        return JSONObject.parseObject(JSON.toJSONString(homeworkService.getHomeworkByUser(obj), SerializerFeature.WriteDateUseDateFormat));
+        return JSONObject.parseObject(JSON.toJSONString(homeworkService.getHomeworkByUser(obj), SerializerFeature.WriteMapNullValue,
+                SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
     }
 
     @PostMapping(value = "/addHomework")
@@ -35,7 +36,8 @@ public class HomeworkController {
         System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-        return JSONObject.parseObject(JSON.toJSONString(homeworkService.addHomeworkByTeacher(obj), SerializerFeature.WriteDateUseDateFormat));
+        return JSONObject.parseObject(JSON.toJSONString(homeworkService.addHomeworkByTeacher(obj), SerializerFeature.WriteMapNullValue,
+                SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
     }
 
     @PostMapping(value = "/deleteHomework")
@@ -44,7 +46,8 @@ public class HomeworkController {
         System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-        return JSONObject.parseObject(JSON.toJSONString(homeworkService.deleteHomeworkByTeacher(obj), SerializerFeature.WriteDateUseDateFormat));
+        return JSONObject.parseObject(JSON.toJSONString(homeworkService.deleteHomeworkByTeacher(obj), SerializerFeature.WriteMapNullValue,
+                SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
     }
 
     @PostMapping(value = "/editHomework")
@@ -53,6 +56,7 @@ public class HomeworkController {
         System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-        return JSONObject.parseObject(JSON.toJSONString(homeworkService.editHomeworkByTeacher(obj), SerializerFeature.WriteDateUseDateFormat));
+        return JSONObject.parseObject(JSON.toJSONString(homeworkService.editHomeworkByTeacher(obj), SerializerFeature.WriteMapNullValue,
+                SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
     }
 }
