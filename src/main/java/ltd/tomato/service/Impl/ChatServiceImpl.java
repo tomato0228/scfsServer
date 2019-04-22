@@ -181,8 +181,6 @@ public class ChatServiceImpl implements ChatService {
                                     userIds.add(p.getParentsId());
                                 }
                             }
-                        } else {
-                            users = new ArrayList<>(16);
                         }
                     }
                     if (userIds.size() > 0) {
