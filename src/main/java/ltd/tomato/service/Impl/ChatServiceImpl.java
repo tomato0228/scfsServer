@@ -29,28 +29,28 @@ public class ChatServiceImpl implements ChatService {
     public Map<String, Object> getChatList(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
-        List<ChatView> chatViews;
+        List<Chat> chats;
         try {
             if (object.getInteger("sendId") != null && object.getInteger("receiveId") != null) {
-                ChatViewExample chatViewExample = new ChatViewExample();
-                ChatViewExample.Criteria criteria = chatViewExample.createCriteria();
+                ChatExample chatExample = new ChatExample();
+                ChatExample.Criteria criteria = chatExample.createCriteria();
                 criteria.andSendIdEqualTo(object.getInteger("receiveId"));
                 criteria.andReceiveIdEqualTo(object.getInteger("sendId"));
                 if (object.getInteger("chatMesg") != null && object.getInteger("chatMesg") == 0) {
                     criteria.andChatMesgEqualTo(0);
                 } else {
-                    ChatViewExample.Criteria criteria_or = chatViewExample.createCriteria();
+                    ChatExample.Criteria criteria_or = chatExample.createCriteria();
                     criteria_or.andSendIdEqualTo(object.getInteger("sendId"));
                     criteria_or.andReceiveIdEqualTo(object.getInteger("receiveId"));
-                    chatViewExample.or(criteria_or);
+                    chatExample.or(criteria_or);
                 }
-                chatViewExample.setOrderByClause("chat_date DESC");
-                chatViews = chatViewMapper.selectByExample(chatViewExample);
-                total = chatViews.size();
+                chatExample.setOrderByClause("chat_date DESC");
+                chats = chatMapper.selectByExample(chatExample);
+                total = chats.size();
                 resultSet.put("status", 0);
                 resultSet.put("message", "获取消息列表成功！");
                 resultSet.put("total", total);
-                resultSet.put("data", chatViews);
+                resultSet.put("data", chats);
             } else {
                 resultSet.put("status", 1);
                 resultSet.put("message", "获取消息列表失败！");
@@ -85,20 +85,21 @@ public class ChatServiceImpl implements ChatService {
                 chats = chatMapper.selectByExample(chatExample);
                 List<Integer> userIds = new ArrayList<>(16);
                 for (Chat c : chats) {
-                    if (c.getSendId().equals(user.getUserId())) {
-                        if (!userIds.contains(c.getReceiveId()) && !c.getReceiveId().equals(user.getUserId())) {
-                            userIds.add(c.getReceiveId());
-                        }
-                    } else if (c.getReceiveId().equals(user.getUserId())) {
-                        if (!userIds.contains(c.getSendId()) && !c.getSendId().equals(user.getUserId())) {
-                            userIds.add(c.getSendId());
-                        }
+                    if (c.getSendId().equals(user.getUserId()) && !userIds.contains(c.getReceiveId())) {
+                        userIds.add(c.getReceiveId());
+                    } else if (c.getReceiveId().equals(user.getUserId()) && !userIds.contains(c.getSendId())) {
+                        userIds.add(c.getSendId());
                     }
                 }
-                UserExample userExample = new UserExample();
-                UserExample.Criteria criteria_u = userExample.createCriteria();
-                criteria_u.andUserIdIn(userIds);
-                users = userMapper.selectByExample(userExample);
+                if (userIds.size() > 0) {
+                    UserExample userExample = new UserExample();
+                    UserExample.Criteria criteria_u = userExample.createCriteria();
+                    criteria_u.andUserIdIn(userIds);
+                    criteria_u.andUserIdNotEqualTo(user.getUserId());
+                    users = userMapper.selectByExample(userExample);
+                } else {
+                    users = new ArrayList<>(16);
+                }
                 total = users.size();
                 resultSet.put("status", 0);
                 resultSet.put("message", "获取已聊天联系人列表成功！");
@@ -133,7 +134,7 @@ public class ChatServiceImpl implements ChatService {
                 if (user.getUserType().equals("教师")) {
                     classId = object.getInteger("classId");
                 } else if (user.getUserType().equals("家长")) {
-                    classId = studentMapper.selectByPrimaryKey(parentsMapper.selectByPrimaryKey(user.getUserId()).getParentsId()).getClassId();
+                    classId = studentMapper.selectByPrimaryKey(parentsMapper.selectByPrimaryKey(user.getUserId()).getStudentId()).getClassId();
                 } else {
                     classId = studentMapper.selectByPrimaryKey(user.getUserId()).getClassId();
                 }
@@ -147,36 +148,50 @@ public class ChatServiceImpl implements ChatService {
                     List<Tclass> tclasses = tclassMapper.selectByExample(tclassExample);
                     List<Integer> teacherIds = new ArrayList<>();
                     for (Tclass t : tclasses) {
-                        if (!teacherIds.contains(t.getTeacherId()) && !t.getTclassId().equals(user.getUserId())) {
+                        if (!teacherIds.contains(t.getTeacherId())) {
                             teacherIds.add(t.getTeacherId());
                         }
                     }
-                    criteria.andUserIdIn(teacherIds);
-                    users = userMapper.selectByExample(userExample);
+                    if (teacherIds.size() > 0) {
+                        criteria.andUserIdIn(teacherIds);
+                        criteria.andUserIdNotEqualTo(user.getUserId());
+                        users = userMapper.selectByExample(userExample);
+                    } else {
+                        users = new ArrayList<>(16);
+                    }
                 } else {
                     StudentExample studentExample = new StudentExample();
                     StudentExample.Criteria criteria_s = studentExample.createCriteria();
                     criteria_s.andClassIdEqualTo(classId);
                     List<Student> students = studentMapper.selectByExample(studentExample);
                     for (Student s : students) {
-                        if (!userIds.contains(s.getStudentId()) && !s.getStudentId().equals(user.getUserId())) {
+                        if (!userIds.contains(s.getStudentId())) {
                             userIds.add(s.getStudentId());
                         }
                     }
                     if (object.getString("contactsType").equals("家长")) {
                         ParentsExample parentsExample = new ParentsExample();
                         ParentsExample.Criteria criteria_p = parentsExample.createCriteria();
-                        criteria_p.andStudentIdIn(userIds);
-                        List<Parents> parents = parentsMapper.selectByExample(parentsExample);
-                        userIds.clear();
-                        for (Parents p : parents) {
-                            if (!userIds.contains(p.getParentsId()) && !p.getParentsId().equals(user.getUserId())) {
-                                userIds.add(p.getParentsId());
+                        if (userIds.size() > 0) {
+                            criteria_p.andStudentIdIn(userIds);
+                            List<Parents> parents = parentsMapper.selectByExample(parentsExample);
+                            userIds.clear();
+                            for (Parents p : parents) {
+                                if (!userIds.contains(p.getParentsId())) {
+                                    userIds.add(p.getParentsId());
+                                }
                             }
+                        } else {
+                            users = new ArrayList<>(16);
                         }
                     }
-                    criteria.andUserIdIn(userIds);
-                    users = userMapper.selectByExample(userExample);
+                    if (userIds.size() > 0) {
+                        criteria.andUserIdIn(userIds);
+                        criteria.andUserIdNotEqualTo(user.getUserId());
+                        users = userMapper.selectByExample(userExample);
+                    } else {
+                        users = new ArrayList<>(16);
+                    }
                 }
                 total = users.size();
                 resultSet.put("status", 0);
