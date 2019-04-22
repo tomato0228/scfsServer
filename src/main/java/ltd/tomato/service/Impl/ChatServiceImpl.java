@@ -8,10 +8,7 @@ import ltd.tomato.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("Chat")
 public class ChatServiceImpl implements ChatService {
@@ -206,7 +203,37 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Map<String, Object> addChat(JSONObject object) {
-        return null;
+        int total = 0;
+        Map<String, Object> resultSet = new HashMap<>(16);
+        int status = 0;
+        try {
+            if (object.getInteger("sendId") != null && object.getInteger("receiveId") != null && object.getInteger("chatType") != null && !StringUtil.isNULLOREmpty(object.getString("chatContent"))) {
+                Chat chat = new Chat();
+                chat.setSendId(object.getInteger("userId"));
+                chat.setReceiveId(object.getInteger("receiveId"));
+                chat.setChatContent(object.getString("chatContent"));
+                chat.setChatType(object.getInteger("chatType"));
+                chat.setChatDate(new Date());
+                chat.setChatMesg(0);
+                status = chatMapper.insertSelective(chat);
+                resultSet.put("status", 0);
+                resultSet.put("message", "发送消息成功！");
+                resultSet.put("total", total);
+                resultSet.put("data", String.valueOf(status));
+            } else {
+                resultSet.put("status", 1);
+                resultSet.put("message", "发送消息失败！");
+                resultSet.put("total", 0);
+                resultSet.put("data", String.valueOf(0));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultSet.put("status", 100);
+            resultSet.put("message", "发送消息错误！");
+            resultSet.put("total", 0);
+            resultSet.put("data", String.valueOf(0));
+        }
+        return resultSet;
     }
 
     @Override
