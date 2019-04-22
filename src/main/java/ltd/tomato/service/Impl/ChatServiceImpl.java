@@ -35,16 +35,19 @@ public class ChatServiceImpl implements ChatService {
         Map<String, Object> resultSet = new HashMap<>(16);
         List<ChatView> chatViews;
         try {
-            ChatViewExample chatViewExample = new ChatViewExample();
-            ChatViewExample.Criteria criteria = chatViewExample.createCriteria();
             if (object.getInteger("sendId") != null && object.getInteger("receiveId") != null) {
-                List<Integer> userIds = new ArrayList<>(16);
-                userIds.add(object.getInteger("sendId"));
-                userIds.add(object.getInteger("receiveId"));
-                criteria.andSendIdIn(userIds);
-                criteria.andReceiveIdIn(userIds);
+                ChatViewExample chatViewExample = new ChatViewExample();
+                ChatViewExample.Criteria criteria = chatViewExample.createCriteria();
+                criteria.andSendIdEqualTo(object.getInteger("receiveId"));
+                criteria.andReceiveIdEqualTo(object.getInteger("sendId"));
                 if (object.getInteger("chatMesg") != null && object.getInteger("chatMesg") == 0) {
                     criteria.andChatMesgEqualTo(0);
+                }
+                else {
+                    ChatViewExample.Criteria criteria_or = chatViewExample.createCriteria();
+                    criteria_or.andSendIdEqualTo(object.getInteger("sendId"));
+                    criteria_or.andReceiveIdEqualTo(object.getInteger("receiveId"));
+                    chatViewExample.or(criteria_or);
                 }
                 chatViewExample.setOrderByClause("chat_date DESC");
                 chatViews = chatViewMapper.selectByExample(chatViewExample);
@@ -205,7 +208,7 @@ public class ChatServiceImpl implements ChatService {
     public Map<String, Object> addChat(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
-        int status = 0;
+        int status;
         try {
             if (object.getInteger("sendId") != null && object.getInteger("receiveId") != null && object.getInteger("chatType") != null && !StringUtil.isNULLOREmpty(object.getString("chatContent"))) {
                 Chat chat = new Chat();
@@ -238,11 +241,65 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Map<String, Object> deleteChatList(JSONObject object) {
-        return null;
+        int total = 0;
+        Map<String, Object> resultSet = new HashMap<>(16);
+        int status;
+        try {
+            if (object.getInteger("sendId") != null && object.getInteger("receiveId") != null) {
+                ChatExample chatExample = new ChatExample();
+                ChatExample.Criteria criteria = chatExample.createCriteria();
+                criteria.andSendIdEqualTo(object.getInteger("sendId"));
+                criteria.andReceiveIdEqualTo(object.getInteger("receiveId"));
+                ChatExample.Criteria criteria_or = chatExample.createCriteria();
+                criteria_or.andSendIdEqualTo(object.getInteger("receiveId"));
+                criteria_or.andReceiveIdEqualTo(object.getInteger("sendId"));
+                chatExample.or(criteria_or);
+                status = chatMapper.deleteByExample(chatExample);
+                resultSet.put("status", 0);
+                resultSet.put("message", "删除消息列表成功！");
+                resultSet.put("total", total);
+                resultSet.put("data", String.valueOf(status));
+            } else {
+                resultSet.put("status", 0);
+                resultSet.put("message", "删除消息列表失败！");
+                resultSet.put("total", 0);
+                resultSet.put("data", String.valueOf(0));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultSet.put("status", 100);
+            resultSet.put("message", "删除消息列表错误！");
+            resultSet.put("total", 0);
+            resultSet.put("data", String.valueOf(0));
+        }
+        return resultSet;
     }
 
     @Override
     public Map<String, Object> deleteChat(JSONObject object) {
-        return null;
+        int total = 0;
+        Map<String, Object> resultSet = new HashMap<>(16);
+        int status;
+        try {
+            if (object.getInteger("chatId") != null) {
+                status = chatMapper.deleteByPrimaryKey(object.getInteger("chatId"));
+                resultSet.put("status", 0);
+                resultSet.put("message", "删除消息成功！");
+                resultSet.put("total", total);
+                resultSet.put("data", String.valueOf(status));
+            } else {
+                resultSet.put("status", 0);
+                resultSet.put("message", "删除消息失败！");
+                resultSet.put("total", 0);
+                resultSet.put("data", String.valueOf(0));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultSet.put("status", 100);
+            resultSet.put("message", "删除消息错误！");
+            resultSet.put("total", 0);
+            resultSet.put("data", String.valueOf(0));
+        }
+        return resultSet;
     }
 }
