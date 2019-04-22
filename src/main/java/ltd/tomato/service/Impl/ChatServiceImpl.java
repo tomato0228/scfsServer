@@ -23,11 +23,7 @@ public class ChatServiceImpl implements ChatService {
     @Autowired(required = false)
     ParentsMapper parentsMapper;
     @Autowired(required = false)
-    TeacherMapper teacherMapper;
-    @Autowired(required = false)
     TclassMapper tclassMapper;
-    @Autowired(required = false)
-    ClassMapper classMapper;
 
     @Override
     public Map<String, Object> getChatList(JSONObject object) {
@@ -42,8 +38,7 @@ public class ChatServiceImpl implements ChatService {
                 criteria.andReceiveIdEqualTo(object.getInteger("sendId"));
                 if (object.getInteger("chatMesg") != null && object.getInteger("chatMesg") == 0) {
                     criteria.andChatMesgEqualTo(0);
-                }
-                else {
+                } else {
                     ChatViewExample.Criteria criteria_or = chatViewExample.createCriteria();
                     criteria_or.andSendIdEqualTo(object.getInteger("sendId"));
                     criteria_or.andReceiveIdEqualTo(object.getInteger("receiveId"));
