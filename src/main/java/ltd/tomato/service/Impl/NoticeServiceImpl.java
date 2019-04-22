@@ -103,7 +103,7 @@ public class NoticeServiceImpl implements NoticeService {
             resultSet.put("status", 100);
             resultSet.put("message", "增加通知错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", 0);
+            resultSet.put("data", String.valueOf(0));
         }
         return resultSet;
     }
@@ -126,7 +126,7 @@ public class NoticeServiceImpl implements NoticeService {
             resultSet.put("status", 100);
             resultSet.put("message", "删除通知错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", 0);
+            resultSet.put("data", String.valueOf(0));
         }
         return resultSet;
     }
@@ -159,7 +159,7 @@ public class NoticeServiceImpl implements NoticeService {
             resultSet.put("status", 100);
             resultSet.put("message", "编辑通知错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", 0);
+            resultSet.put("data", String.valueOf(0));
         }
         return resultSet;
     }
