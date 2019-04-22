@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.tomato.mapper.ChatViewMapper">
+  <resultMap id="BaseResultMap" type="ltd.tomato.model.ChatView">
+    <result column="chat_id" jdbcType="INTEGER" property="chatId" />
+    <result column="chat_date" jdbcType="TIMESTAMP" property="chatDate" />
+    <result column="chat_type" jdbcType="INTEGER" property="chatType" />
+    <result column="chat_content" jdbcType="VARCHAR" property="chatContent" />
+    <result column="send_id" jdbcType="INTEGER" property="sendId" />
+    <result column="receive_id" jdbcType="INTEGER" property="receiveId" />
+    <result column="chat_mesg" jdbcType="INTEGER" property="chatMesg" />
+    <result column="send_name" jdbcType="VARCHAR" property="sendName" />
+    <result column="send_sex" jdbcType="CHAR" property="sendSex" />
+    <result column="send_birth" jdbcType="DATE" property="sendBirth" />
+    <result column="send_tel" jdbcType="VARCHAR" property="sendTel" />
+    <result column="send_addr" jdbcType="VARCHAR" property="sendAddr" />
+    <result column="send_type" jdbcType="CHAR" property="sendType" />
+    <result column="send_email" jdbcType="VARCHAR" property="sendEmail" />
+    <result column="send_profile" jdbcType="VARCHAR" property="sendProfile" />
+    <result column="send_signature" jdbcType="VARCHAR" property="sendSignature" />
+    <result column="receive_name" jdbcType="VARCHAR" property="receiveName" />
+    <result column="receive_sex" jdbcType="CHAR" property="receiveSex" />
+    <result column="receive_birth" jdbcType="DATE" property="receiveBirth" />
+    <result column="receive_tel" jdbcType="VARCHAR" property="receiveTel" />
+    <result column="receive_addr" jdbcType="VARCHAR" property="receiveAddr" />
+    <result column="receive_type" jdbcType="CHAR" property="receiveType" />
+    <result column="receive_email" jdbcType="VARCHAR" property="receiveEmail" />
+    <result column="receive_profile" jdbcType="VARCHAR" property="receiveProfile" />
+    <result column="receive_signature" jdbcType="VARCHAR" property="receiveSignature" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    chat_id, chat_date, chat_type, chat_content, send_id, receive_id, chat_mesg, send_name, 
+    send_sex, send_birth, send_tel, send_addr, send_type, send_email, send_profile, send_signature, 
+    receive_name, receive_sex, receive_birth, receive_tel, receive_addr, receive_type, 
+    receive_email, receive_profile, receive_signature
+  </sql>
+  <select id="selectByExample" parameterType="ltd.tomato.model.ChatViewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from chat_view
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="ltd.tomato.model.ChatViewExample">
+    delete from chat_view
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="chat_id" keyProperty="chatId" parameterType="ltd.tomato.model.ChatView" useGeneratedKeys="true">
+    insert into chat_view (chat_date, chat_type, chat_content, 
+      send_id, receive_id, chat_mesg, 
+      send_name, send_sex, send_birth, 
+      send_tel, send_addr, send_type, 
+      send_email, send_profile, send_signature, 
+      receive_name, receive_sex, receive_birth, 
+      receive_tel, receive_addr, receive_type, 
+      receive_email, receive_profile, receive_signature
+      )
+    values (#{chatDate,jdbcType=TIMESTAMP}, #{chatType,jdbcType=INTEGER}, #{chatContent,jdbcType=VARCHAR}, 
+      #{sendId,jdbcType=INTEGER}, #{receiveId,jdbcType=INTEGER}, #{chatMesg,jdbcType=INTEGER}, 
+      #{sendName,jdbcType=VARCHAR}, #{sendSex,jdbcType=CHAR}, #{sendBirth,jdbcType=DATE}, 
+      #{sendTel,jdbcType=VARCHAR}, #{sendAddr,jdbcType=VARCHAR}, #{sendType,jdbcType=CHAR}, 
+      #{sendEmail,jdbcType=VARCHAR}, #{sendProfile,jdbcType=VARCHAR}, #{sendSignature,jdbcType=VARCHAR}, 
+      #{receiveName,jdbcType=VARCHAR}, #{receiveSex,jdbcType=CHAR}, #{receiveBirth,jdbcType=DATE}, 
+      #{receiveTel,jdbcType=VARCHAR}, #{receiveAddr,jdbcType=VARCHAR}, #{receiveType,jdbcType=CHAR}, 
+      #{receiveEmail,jdbcType=VARCHAR}, #{receiveProfile,jdbcType=VARCHAR}, #{receiveSignature,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="chat_id" keyProperty="chatId" parameterType="ltd.tomato.model.ChatView" useGeneratedKeys="true">
+    insert into chat_view
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="chatDate != null">
+        chat_date,
+      </if>
+      <if test="chatType != null">
+        chat_type,
+      </if>
+      <if test="chatContent != null">
+        chat_content,
+      </if>
+      <if test="sendId != null">
+        send_id,
+      </if>
+      <if test="receiveId != null">
+        receive_id,
+      </if>
+      <if test="chatMesg != null">
+        chat_mesg,
+      </if>
+      <if test="sendName != null">
+        send_name,
+      </if>
+      <if test="sendSex != null">
+        send_sex,
+      </if>
+      <if test="sendBirth != null">
+        send_birth,
+      </if>
+      <if test="sendTel != null">
+        send_tel,
+      </if>
+      <if test="sendAddr != null">
+        send_addr,
+      </if>
+      <if test="sendType != null">
+        send_type,
+      </if>
+      <if test="sendEmail != null">
+        send_email,
+      </if>
+      <if test="sendProfile != null">
+        send_profile,
+      </if>
+      <if test="sendSignature != null">
+        send_signature,
+      </if>
+      <if test="receiveName != null">
+        receive_name,
+      </if>
+      <if test="receiveSex != null">
+        receive_sex,
+      </if>
+      <if test="receiveBirth != null">
+        receive_birth,
+      </if>
+      <if test="receiveTel != null">
+        receive_tel,
+      </if>
+      <if test="receiveAddr != null">
+        receive_addr,
+      </if>
+      <if test="receiveType != null">
+        receive_type,
+      </if>
+      <if test="receiveEmail != null">
+        receive_email,
+      </if>
+      <if test="receiveProfile != null">
+        receive_profile,
+      </if>
+      <if test="receiveSignature != null">
+        receive_signature,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="chatDate != null">
+        #{chatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chatType != null">
+        #{chatType,jdbcType=INTEGER},
+      </if>
+      <if test="chatContent != null">
+        #{chatContent,jdbcType=VARCHAR},
+      </if>
+      <if test="sendId != null">
+        #{sendId,jdbcType=INTEGER},
+      </if>
+      <if test="receiveId != null">
+        #{receiveId,jdbcType=INTEGER},
+      </if>
+      <if test="chatMesg != null">
+        #{chatMesg,jdbcType=INTEGER},
+      </if>
+      <if test="sendName != null">
+        #{sendName,jdbcType=VARCHAR},
+      </if>
+      <if test="sendSex != null">
+        #{sendSex,jdbcType=CHAR},
+      </if>
+      <if test="sendBirth != null">
+        #{sendBirth,jdbcType=DATE},
+      </if>
+      <if test="sendTel != null">
+        #{sendTel,jdbcType=VARCHAR},
+      </if>
+      <if test="sendAddr != null">
+        #{sendAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="sendType != null">
+        #{sendType,jdbcType=CHAR},
+      </if>
+      <if test="sendEmail != null">
+        #{sendEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="sendProfile != null">
+        #{sendProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="sendSignature != null">
+        #{sendSignature,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveName != null">
+        #{receiveName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveSex != null">
+        #{receiveSex,jdbcType=CHAR},
+      </if>
+      <if test="receiveBirth != null">
+        #{receiveBirth,jdbcType=DATE},
+      </if>
+      <if test="receiveTel != null">
+        #{receiveTel,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddr != null">
+        #{receiveAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveType != null">
+        #{receiveType,jdbcType=CHAR},
+      </if>
+      <if test="receiveEmail != null">
+        #{receiveEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveProfile != null">
+        #{receiveProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveSignature != null">
+        #{receiveSignature,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ltd.tomato.model.ChatViewExample" resultType="java.lang.Long">
+    select count(*) from chat_view
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update chat_view
+    <set>
+      <if test="record.chatId != null">
+        chat_id = #{record.chatId,jdbcType=INTEGER},
+      </if>
+      <if test="record.chatDate != null">
+        chat_date = #{record.chatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.chatType != null">
+        chat_type = #{record.chatType,jdbcType=INTEGER},
+      </if>
+      <if test="record.chatContent != null">
+        chat_content = #{record.chatContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendId != null">
+        send_id = #{record.sendId,jdbcType=INTEGER},
+      </if>
+      <if test="record.receiveId != null">
+        receive_id = #{record.receiveId,jdbcType=INTEGER},
+      </if>
+      <if test="record.chatMesg != null">
+        chat_mesg = #{record.chatMesg,jdbcType=INTEGER},
+      </if>
+      <if test="record.sendName != null">
+        send_name = #{record.sendName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendSex != null">
+        send_sex = #{record.sendSex,jdbcType=CHAR},
+      </if>
+      <if test="record.sendBirth != null">
+        send_birth = #{record.sendBirth,jdbcType=DATE},
+      </if>
+      <if test="record.sendTel != null">
+        send_tel = #{record.sendTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendAddr != null">
+        send_addr = #{record.sendAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendType != null">
+        send_type = #{record.sendType,jdbcType=CHAR},
+      </if>
+      <if test="record.sendEmail != null">
+        send_email = #{record.sendEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendProfile != null">
+        send_profile = #{record.sendProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendSignature != null">
+        send_signature = #{record.sendSignature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveName != null">
+        receive_name = #{record.receiveName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveSex != null">
+        receive_sex = #{record.receiveSex,jdbcType=CHAR},
+      </if>
+      <if test="record.receiveBirth != null">
+        receive_birth = #{record.receiveBirth,jdbcType=DATE},
+      </if>
+      <if test="record.receiveTel != null">
+        receive_tel = #{record.receiveTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveAddr != null">
+        receive_addr = #{record.receiveAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveType != null">
+        receive_type = #{record.receiveType,jdbcType=CHAR},
+      </if>
+      <if test="record.receiveEmail != null">
+        receive_email = #{record.receiveEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveProfile != null">
+        receive_profile = #{record.receiveProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveSignature != null">
+        receive_signature = #{record.receiveSignature,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update chat_view
+    set chat_id = #{record.chatId,jdbcType=INTEGER},
+      chat_date = #{record.chatDate,jdbcType=TIMESTAMP},
+      chat_type = #{record.chatType,jdbcType=INTEGER},
+      chat_content = #{record.chatContent,jdbcType=VARCHAR},
+      send_id = #{record.sendId,jdbcType=INTEGER},
+      receive_id = #{record.receiveId,jdbcType=INTEGER},
+      chat_mesg = #{record.chatMesg,jdbcType=INTEGER},
+      send_name = #{record.sendName,jdbcType=VARCHAR},
+      send_sex = #{record.sendSex,jdbcType=CHAR},
+      send_birth = #{record.sendBirth,jdbcType=DATE},
+      send_tel = #{record.sendTel,jdbcType=VARCHAR},
+      send_addr = #{record.sendAddr,jdbcType=VARCHAR},
+      send_type = #{record.sendType,jdbcType=CHAR},
+      send_email = #{record.sendEmail,jdbcType=VARCHAR},
+      send_profile = #{record.sendProfile,jdbcType=VARCHAR},
+      send_signature = #{record.sendSignature,jdbcType=VARCHAR},
+      receive_name = #{record.receiveName,jdbcType=VARCHAR},
+      receive_sex = #{record.receiveSex,jdbcType=CHAR},
+      receive_birth = #{record.receiveBirth,jdbcType=DATE},
+      receive_tel = #{record.receiveTel,jdbcType=VARCHAR},
+      receive_addr = #{record.receiveAddr,jdbcType=VARCHAR},
+      receive_type = #{record.receiveType,jdbcType=CHAR},
+      receive_email = #{record.receiveEmail,jdbcType=VARCHAR},
+      receive_profile = #{record.receiveProfile,jdbcType=VARCHAR},
+      receive_signature = #{record.receiveSignature,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

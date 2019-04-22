@@ -24,6 +24,11 @@ public class Chat implements Serializable {
     private String chatContent;
 
     /**
+     * 消息类型
+     */
+    private Integer chatType;
+
+    /**
      * 发送者ID
      */
     private Integer sendId;
@@ -62,6 +67,14 @@ public class Chat implements Serializable {
 
     public void setChatContent(String chatContent) {
         this.chatContent = chatContent;
+    }
+
+    public Integer getChatType() {
+        return chatType;
+    }
+
+    public void setChatType(Integer chatType) {
+        this.chatType = chatType;
     }
 
     public Integer getSendId() {
@@ -103,6 +116,7 @@ public class Chat implements Serializable {
         return (this.getChatId() == null ? other.getChatId() == null : this.getChatId().equals(other.getChatId()))
             && (this.getChatDate() == null ? other.getChatDate() == null : this.getChatDate().equals(other.getChatDate()))
             && (this.getChatContent() == null ? other.getChatContent() == null : this.getChatContent().equals(other.getChatContent()))
+            && (this.getChatType() == null ? other.getChatType() == null : this.getChatType().equals(other.getChatType()))
             && (this.getSendId() == null ? other.getSendId() == null : this.getSendId().equals(other.getSendId()))
             && (this.getReceiveId() == null ? other.getReceiveId() == null : this.getReceiveId().equals(other.getReceiveId()))
             && (this.getChatMesg() == null ? other.getChatMesg() == null : this.getChatMesg().equals(other.getChatMesg()));
@@ -115,6 +129,7 @@ public class Chat implements Serializable {
         result = prime * result + ((getChatId() == null) ? 0 : getChatId().hashCode());
         result = prime * result + ((getChatDate() == null) ? 0 : getChatDate().hashCode());
         result = prime * result + ((getChatContent() == null) ? 0 : getChatContent().hashCode());
+        result = prime * result + ((getChatType() == null) ? 0 : getChatType().hashCode());
         result = prime * result + ((getSendId() == null) ? 0 : getSendId().hashCode());
         result = prime * result + ((getReceiveId() == null) ? 0 : getReceiveId().hashCode());
         result = prime * result + ((getChatMesg() == null) ? 0 : getChatMesg().hashCode());
@@ -130,6 +145,7 @@ public class Chat implements Serializable {
         sb.append(", chatId=").append(chatId);
         sb.append(", chatDate=").append(chatDate);
         sb.append(", chatContent=").append(chatContent);
+        sb.append(", chatType=").append(chatType);
         sb.append(", sendId=").append(sendId);
         sb.append(", receiveId=").append(receiveId);
         sb.append(", chatMesg=").append(chatMesg);

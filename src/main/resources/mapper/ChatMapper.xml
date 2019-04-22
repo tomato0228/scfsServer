@@ -5,6 +5,7 @@
     <id column="chat_id" jdbcType="INTEGER" property="chatId" />
     <result column="chat_date" jdbcType="TIMESTAMP" property="chatDate" />
     <result column="chat_content" jdbcType="VARCHAR" property="chatContent" />
+    <result column="chat_type" jdbcType="INTEGER" property="chatType" />
     <result column="send_id" jdbcType="INTEGER" property="sendId" />
     <result column="receive_id" jdbcType="INTEGER" property="receiveId" />
     <result column="chat_mesg" jdbcType="INTEGER" property="chatMesg" />
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    chat_id, chat_date, chat_content, send_id, receive_id, chat_mesg
+    chat_id, chat_date, chat_content, chat_type, send_id, receive_id, chat_mesg
   </sql>
   <select id="selectByExample" parameterType="ltd.tomato.model.ChatExample" resultMap="BaseResultMap">
     select
@@ -110,11 +111,11 @@
   </delete>
   <insert id="insert" parameterType="ltd.tomato.model.Chat">
     insert into chat (chat_id, chat_date, chat_content, 
-      send_id, receive_id, chat_mesg
-      )
+      chat_type, send_id, receive_id, 
+      chat_mesg)
     values (#{chatId,jdbcType=INTEGER}, #{chatDate,jdbcType=TIMESTAMP}, #{chatContent,jdbcType=VARCHAR}, 
-      #{sendId,jdbcType=INTEGER}, #{receiveId,jdbcType=INTEGER}, #{chatMesg,jdbcType=INTEGER}
-      )
+      #{chatType,jdbcType=INTEGER}, #{sendId,jdbcType=INTEGER}, #{receiveId,jdbcType=INTEGER}, 
+      #{chatMesg,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="ltd.tomato.model.Chat">
     insert into chat
@@ -127,6 +128,9 @@
       </if>
       <if test="chatContent != null">
         chat_content,
+      </if>
+      <if test="chatType != null">
+        chat_type,
       </if>
       <if test="sendId != null">
         send_id,
@@ -147,6 +151,9 @@
       </if>
       <if test="chatContent != null">
         #{chatContent,jdbcType=VARCHAR},
+      </if>
+      <if test="chatType != null">
+        #{chatType,jdbcType=INTEGER},
       </if>
       <if test="sendId != null">
         #{sendId,jdbcType=INTEGER},
@@ -177,6 +184,9 @@
       <if test="record.chatContent != null">
         chat_content = #{record.chatContent,jdbcType=VARCHAR},
       </if>
+      <if test="record.chatType != null">
+        chat_type = #{record.chatType,jdbcType=INTEGER},
+      </if>
       <if test="record.sendId != null">
         send_id = #{record.sendId,jdbcType=INTEGER},
       </if>
@@ -196,6 +206,7 @@
     set chat_id = #{record.chatId,jdbcType=INTEGER},
       chat_date = #{record.chatDate,jdbcType=TIMESTAMP},
       chat_content = #{record.chatContent,jdbcType=VARCHAR},
+      chat_type = #{record.chatType,jdbcType=INTEGER},
       send_id = #{record.sendId,jdbcType=INTEGER},
       receive_id = #{record.receiveId,jdbcType=INTEGER},
       chat_mesg = #{record.chatMesg,jdbcType=INTEGER}
@@ -211,6 +222,9 @@
       </if>
       <if test="chatContent != null">
         chat_content = #{chatContent,jdbcType=VARCHAR},
+      </if>
+      <if test="chatType != null">
+        chat_type = #{chatType,jdbcType=INTEGER},
       </if>
       <if test="sendId != null">
         send_id = #{sendId,jdbcType=INTEGER},
@@ -228,6 +242,7 @@
     update chat
     set chat_date = #{chatDate,jdbcType=TIMESTAMP},
       chat_content = #{chatContent,jdbcType=VARCHAR},
+      chat_type = #{chatType,jdbcType=INTEGER},
       send_id = #{sendId,jdbcType=INTEGER},
       receive_id = #{receiveId,jdbcType=INTEGER},
       chat_mesg = #{chatMesg,jdbcType=INTEGER}
