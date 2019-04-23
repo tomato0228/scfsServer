@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ltd.tomato.mapper.CourseMapper">
-  <resultMap id="BaseResultMap" type="ltd.tomato.model.Course">
-    <id column="course_id" jdbcType="INTEGER" property="courseId" />
-    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
-    <result column="college_id" jdbcType="INTEGER" property="collegeId" />
+<mapper namespace="ltd.tomato.mapper.ValidationMapper">
+  <resultMap id="BaseResultMap" type="ltd.tomato.model.Validation">
+    <id column="validation_id" jdbcType="INTEGER" property="validationId" />
+    <result column="validation_acc" jdbcType="VARCHAR" property="validationAcc" />
+    <result column="validation_code" jdbcType="VARCHAR" property="validationCode" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    course_id, course_name, college_id
+    validation_id, validation_acc, validation_code
   </sql>
-  <select id="selectByExample" parameterType="ltd.tomato.model.CourseExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="ltd.tomato.model.ValidationExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from course
+    from validation
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,59 +92,59 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from course
-    where course_id = #{courseId,jdbcType=INTEGER}
+    from validation
+    where validation_id = #{validationId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from course
-    where course_id = #{courseId,jdbcType=INTEGER}
+    delete from validation
+    where validation_id = #{validationId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="ltd.tomato.model.CourseExample">
-    delete from course
+  <delete id="deleteByExample" parameterType="ltd.tomato.model.ValidationExample">
+    delete from validation
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="course_id" keyProperty="courseId" parameterType="ltd.tomato.model.Course" useGeneratedKeys="true">
-    insert into course (course_name, college_id)
-    values (#{courseName,jdbcType=VARCHAR}, #{collegeId,jdbcType=INTEGER})
+  <insert id="insert" keyColumn="validation_id" keyProperty="validationId" parameterType="ltd.tomato.model.Validation" useGeneratedKeys="true">
+    insert into validation (validation_acc, validation_code)
+    values (#{validationAcc,jdbcType=VARCHAR}, #{validationCode,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="course_id" keyProperty="courseId" parameterType="ltd.tomato.model.Course" useGeneratedKeys="true">
-    insert into course
+  <insert id="insertSelective" keyColumn="validation_id" keyProperty="validationId" parameterType="ltd.tomato.model.Validation" useGeneratedKeys="true">
+    insert into validation
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="courseName != null">
-        course_name,
+      <if test="validationAcc != null">
+        validation_acc,
       </if>
-      <if test="collegeId != null">
-        college_id,
+      <if test="validationCode != null">
+        validation_code,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="courseName != null">
-        #{courseName,jdbcType=VARCHAR},
+      <if test="validationAcc != null">
+        #{validationAcc,jdbcType=VARCHAR},
       </if>
-      <if test="collegeId != null">
-        #{collegeId,jdbcType=INTEGER},
+      <if test="validationCode != null">
+        #{validationCode,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="ltd.tomato.model.CourseExample" resultType="java.lang.Long">
-    select count(*) from course
+  <select id="countByExample" parameterType="ltd.tomato.model.ValidationExample" resultType="java.lang.Long">
+    select count(*) from validation
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update course
+    update validation
     <set>
-      <if test="record.courseId != null">
-        course_id = #{record.courseId,jdbcType=INTEGER},
+      <if test="record.validationId != null">
+        validation_id = #{record.validationId,jdbcType=INTEGER},
       </if>
-      <if test="record.courseName != null">
-        course_name = #{record.courseName,jdbcType=VARCHAR},
+      <if test="record.validationAcc != null">
+        validation_acc = #{record.validationAcc,jdbcType=VARCHAR},
       </if>
-      <if test="record.collegeId != null">
-        college_id = #{record.collegeId,jdbcType=INTEGER},
+      <if test="record.validationCode != null">
+        validation_code = #{record.validationCode,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -152,30 +152,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update course
-    set course_id = #{record.courseId,jdbcType=INTEGER},
-      course_name = #{record.courseName,jdbcType=VARCHAR},
-      college_id = #{record.collegeId,jdbcType=INTEGER}
+    update validation
+    set validation_id = #{record.validationId,jdbcType=INTEGER},
+      validation_acc = #{record.validationAcc,jdbcType=VARCHAR},
+      validation_code = #{record.validationCode,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="ltd.tomato.model.Course">
-    update course
+  <update id="updateByPrimaryKeySelective" parameterType="ltd.tomato.model.Validation">
+    update validation
     <set>
-      <if test="courseName != null">
-        course_name = #{courseName,jdbcType=VARCHAR},
+      <if test="validationAcc != null">
+        validation_acc = #{validationAcc,jdbcType=VARCHAR},
       </if>
-      <if test="collegeId != null">
-        college_id = #{collegeId,jdbcType=INTEGER},
+      <if test="validationCode != null">
+        validation_code = #{validationCode,jdbcType=VARCHAR},
       </if>
     </set>
-    where course_id = #{courseId,jdbcType=INTEGER}
+    where validation_id = #{validationId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="ltd.tomato.model.Course">
-    update course
-    set course_name = #{courseName,jdbcType=VARCHAR},
-      college_id = #{collegeId,jdbcType=INTEGER}
-    where course_id = #{courseId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="ltd.tomato.model.Validation">
+    update validation
+    set validation_acc = #{validationAcc,jdbcType=VARCHAR},
+      validation_code = #{validationCode,jdbcType=VARCHAR}
+    where validation_id = #{validationId,jdbcType=INTEGER}
   </update>
 </mapper>

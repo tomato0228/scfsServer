@@ -108,20 +108,15 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="ltd.tomato.model.Score">
-    insert into score (score_id, score_num, score_comment, 
-      student_id, course_id, semester_id
-      )
-    values (#{scoreId,jdbcType=INTEGER}, #{scoreNum,jdbcType=REAL}, #{scoreComment,jdbcType=VARCHAR}, 
-      #{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{semesterId,jdbcType=INTEGER}
-      )
+  <insert id="insert" keyColumn="score_id" keyProperty="scoreId" parameterType="ltd.tomato.model.Score" useGeneratedKeys="true">
+    insert into score (score_num, score_comment, student_id, 
+      course_id, semester_id)
+    values (#{scoreNum,jdbcType=REAL}, #{scoreComment,jdbcType=VARCHAR}, #{studentId,jdbcType=INTEGER}, 
+      #{courseId,jdbcType=INTEGER}, #{semesterId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="ltd.tomato.model.Score">
+  <insert id="insertSelective" keyColumn="score_id" keyProperty="scoreId" parameterType="ltd.tomato.model.Score" useGeneratedKeys="true">
     insert into score
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="scoreId != null">
-        score_id,
-      </if>
       <if test="scoreNum != null">
         score_num,
       </if>
@@ -139,9 +134,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="scoreId != null">
-        #{scoreId,jdbcType=INTEGER},
-      </if>
       <if test="scoreNum != null">
         #{scoreNum,jdbcType=REAL},
       </if>

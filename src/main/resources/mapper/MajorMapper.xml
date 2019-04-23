@@ -111,20 +111,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="ltd.tomato.model.Major">
-    insert into major (major_id, major_name, major_profile, 
-      major_addr, major_tel, major_url, 
-      major_logo, college_id)
-    values (#{majorId,jdbcType=INTEGER}, #{majorName,jdbcType=VARCHAR}, #{majorProfile,jdbcType=VARCHAR}, 
-      #{majorAddr,jdbcType=VARCHAR}, #{majorTel,jdbcType=VARCHAR}, #{majorUrl,jdbcType=VARCHAR}, 
-      #{majorLogo,jdbcType=VARCHAR}, #{collegeId,jdbcType=INTEGER})
+  <insert id="insert" keyColumn="major_id" keyProperty="majorId" parameterType="ltd.tomato.model.Major" useGeneratedKeys="true">
+    insert into major (major_name, major_profile, major_addr, 
+      major_tel, major_url, major_logo, 
+      college_id)
+    values (#{majorName,jdbcType=VARCHAR}, #{majorProfile,jdbcType=VARCHAR}, #{majorAddr,jdbcType=VARCHAR}, 
+      #{majorTel,jdbcType=VARCHAR}, #{majorUrl,jdbcType=VARCHAR}, #{majorLogo,jdbcType=VARCHAR}, 
+      #{collegeId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="ltd.tomato.model.Major">
+  <insert id="insertSelective" keyColumn="major_id" keyProperty="majorId" parameterType="ltd.tomato.model.Major" useGeneratedKeys="true">
     insert into major
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="majorId != null">
-        major_id,
-      </if>
       <if test="majorName != null">
         major_name,
       </if>
@@ -148,9 +145,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="majorId != null">
-        #{majorId,jdbcType=INTEGER},
-      </if>
       <if test="majorName != null">
         #{majorName,jdbcType=VARCHAR},
       </if>

@@ -102,13 +102,14 @@ public class HomeworkServiceImpl implements HomeworkService {
                     homework.setHomeworkDate(new Date());
 //                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 //                    System.out.println(df.format(homework.getHomeworkDate()));// new Date()为获取当前系统时间
-                    status = homeworkMapper.insertSelective(homework);
+                    homeworkMapper.insertSelective(homework);
+                    status = homework.getHomeworkId();
                 }
             }
             resultSet.put("status", 0);
             resultSet.put("message", "增加作业成功！");
             resultSet.put("total", total);
-            resultSet.put("data", String.valueOf(status));
+            resultSet.put("data", status);
         } catch (Exception e) {
             e.printStackTrace();
             resultSet.put("status", 100);

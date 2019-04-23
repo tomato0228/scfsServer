@@ -104,24 +104,18 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="ltd.tomato.model.Semester">
-    insert into semester (semester_id, semester_name)
-    values (#{semesterId,jdbcType=INTEGER}, #{semesterName,jdbcType=VARCHAR})
+  <insert id="insert" keyColumn="semester_id" keyProperty="semesterId" parameterType="ltd.tomato.model.Semester" useGeneratedKeys="true">
+    insert into semester (semester_name)
+    values (#{semesterName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="ltd.tomato.model.Semester">
+  <insert id="insertSelective" keyColumn="semester_id" keyProperty="semesterId" parameterType="ltd.tomato.model.Semester" useGeneratedKeys="true">
     insert into semester
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="semesterId != null">
-        semester_id,
-      </if>
       <if test="semesterName != null">
         semester_name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="semesterId != null">
-        #{semesterId,jdbcType=INTEGER},
-      </if>
       <if test="semesterName != null">
         #{semesterName,jdbcType=VARCHAR},
       </if>

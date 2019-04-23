@@ -111,20 +111,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="ltd.tomato.model.College">
-    insert into college (college_id, college_name, college_profile, 
-      college_addr, college_tel, college_url, 
-      college_logo, school_id)
-    values (#{collegeId,jdbcType=INTEGER}, #{collegeName,jdbcType=VARCHAR}, #{collegeProfile,jdbcType=VARCHAR}, 
-      #{collegeAddr,jdbcType=VARCHAR}, #{collegeTel,jdbcType=VARCHAR}, #{collegeUrl,jdbcType=VARCHAR}, 
-      #{collegeLogo,jdbcType=VARCHAR}, #{schoolId,jdbcType=INTEGER})
+  <insert id="insert" keyColumn="college_id" keyProperty="collegeId" parameterType="ltd.tomato.model.College" useGeneratedKeys="true">
+    insert into college (college_name, college_profile, college_addr, 
+      college_tel, college_url, college_logo, 
+      school_id)
+    values (#{collegeName,jdbcType=VARCHAR}, #{collegeProfile,jdbcType=VARCHAR}, #{collegeAddr,jdbcType=VARCHAR}, 
+      #{collegeTel,jdbcType=VARCHAR}, #{collegeUrl,jdbcType=VARCHAR}, #{collegeLogo,jdbcType=VARCHAR}, 
+      #{schoolId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="ltd.tomato.model.College">
+  <insert id="insertSelective" keyColumn="college_id" keyProperty="collegeId" parameterType="ltd.tomato.model.College" useGeneratedKeys="true">
     insert into college
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="collegeId != null">
-        college_id,
-      </if>
       <if test="collegeName != null">
         college_name,
       </if>
@@ -148,9 +145,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="collegeId != null">
-        #{collegeId,jdbcType=INTEGER},
-      </if>
       <if test="collegeName != null">
         #{collegeName,jdbcType=VARCHAR},
       </if>

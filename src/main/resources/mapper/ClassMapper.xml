@@ -108,20 +108,15 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="ltd.tomato.model.Class">
-    insert into class (class_id, class_name, grade_id, 
-      major_id, student_id, teacher_id
-      )
-    values (#{classId,jdbcType=INTEGER}, #{className,jdbcType=VARCHAR}, #{gradeId,jdbcType=INTEGER}, 
-      #{majorId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}
-      )
+  <insert id="insert" keyColumn="class_id" keyProperty="classId" parameterType="ltd.tomato.model.Class" useGeneratedKeys="true">
+    insert into class (class_name, grade_id, major_id, 
+      student_id, teacher_id)
+    values (#{className,jdbcType=VARCHAR}, #{gradeId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER}, 
+      #{studentId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="ltd.tomato.model.Class">
+  <insert id="insertSelective" keyColumn="class_id" keyProperty="classId" parameterType="ltd.tomato.model.Class" useGeneratedKeys="true">
     insert into class
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="classId != null">
-        class_id,
-      </if>
       <if test="className != null">
         class_name,
       </if>
@@ -139,9 +134,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="classId != null">
-        #{classId,jdbcType=INTEGER},
-      </if>
       <if test="className != null">
         #{className,jdbcType=VARCHAR},
       </if>

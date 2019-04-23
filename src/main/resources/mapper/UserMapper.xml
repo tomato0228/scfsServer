@@ -115,24 +115,19 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="ltd.tomato.model.User">
-    insert into user (user_id, user_name, user_sex, 
-      user_birth, user_tel, user_addr, 
-      user_type, user_email, user_profile, 
-      user_signature, user_date, user_password
-      )
-    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userSex,jdbcType=CHAR}, 
-      #{userBirth,jdbcType=DATE}, #{userTel,jdbcType=VARCHAR}, #{userAddr,jdbcType=VARCHAR}, 
-      #{userType,jdbcType=CHAR}, #{userEmail,jdbcType=VARCHAR}, #{userProfile,jdbcType=VARCHAR}, 
-      #{userSignature,jdbcType=VARCHAR}, #{userDate,jdbcType=TIMESTAMP}, #{userPassword,jdbcType=VARCHAR}
-      )
+  <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="ltd.tomato.model.User" useGeneratedKeys="true">
+    insert into user (user_name, user_sex, user_birth, 
+      user_tel, user_addr, user_type, 
+      user_email, user_profile, user_signature, 
+      user_date, user_password)
+    values (#{userName,jdbcType=VARCHAR}, #{userSex,jdbcType=CHAR}, #{userBirth,jdbcType=DATE}, 
+      #{userTel,jdbcType=VARCHAR}, #{userAddr,jdbcType=VARCHAR}, #{userType,jdbcType=CHAR}, 
+      #{userEmail,jdbcType=VARCHAR}, #{userProfile,jdbcType=VARCHAR}, #{userSignature,jdbcType=VARCHAR}, 
+      #{userDate,jdbcType=TIMESTAMP}, #{userPassword,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="ltd.tomato.model.User">
+  <insert id="insertSelective" keyColumn="user_id" keyProperty="userId" parameterType="ltd.tomato.model.User" useGeneratedKeys="true">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
-      </if>
       <if test="userName != null">
         user_name,
       </if>
@@ -168,9 +163,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
