@@ -72,7 +72,6 @@ public class CourseServiceImpl implements CourseService {
             resultSet.put("total", 0);
             resultSet.put("data", new ArrayList<>());
         }
-        System.out.println(resultSet);
         return resultSet;
     }
 }

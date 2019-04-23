@@ -64,7 +64,6 @@ public class ClassServiceImpl implements ClassService {
             resultSet.put("total", 0);
             resultSet.put("data", new ArrayList<>());
         }
-        System.out.println(resultSet);
         return resultSet;
     }
 }

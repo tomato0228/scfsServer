@@ -23,7 +23,6 @@ public class ChatController {
     @PostMapping(value = "/getChatList")
     @ResponseBody
     public JSONObject getChatList(@RequestParam Map map) throws Exception {
-        System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         return JSONObject.parseObject(JSON.toJSONString(chatService.getChatList(obj), SerializerFeature.WriteMapNullValue,
@@ -33,7 +32,6 @@ public class ChatController {
     @PostMapping(value = "/getChatContacts")
     @ResponseBody
     public JSONObject getChatContacts(@RequestParam Map map) throws Exception {
-        System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         return JSONObject.parseObject(JSON.toJSONString(chatService.getChatContactsByUser(obj), SerializerFeature.WriteMapNullValue,
@@ -43,7 +41,6 @@ public class ChatController {
     @PostMapping(value = "/getContacts")
     @ResponseBody
     public JSONObject getContacts(@RequestParam Map map) throws Exception {
-        System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         return JSONObject.parseObject(JSON.toJSONString(chatService.getContactsByUser(obj), SerializerFeature.WriteMapNullValue,
@@ -53,7 +50,6 @@ public class ChatController {
     @PostMapping(value = "/addChat")
     @ResponseBody
     public JSONObject addChat(@RequestParam Map map) throws Exception {
-        System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         return JSONObject.parseObject(JSON.toJSONString(chatService.addChat(obj), SerializerFeature.WriteMapNullValue,
@@ -63,7 +59,6 @@ public class ChatController {
     @PostMapping(value = "/deleteChatList")
     @ResponseBody
     public JSONObject deleteChatList(@RequestParam Map map) throws Exception {
-        System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         return JSONObject.parseObject(JSON.toJSONString(chatService.deleteChatList(obj), SerializerFeature.WriteMapNullValue,
@@ -73,7 +68,6 @@ public class ChatController {
     @PostMapping(value = "/deleteChat")
     @ResponseBody
     public JSONObject deleteChat(@RequestParam Map map) throws Exception {
-        System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         return JSONObject.parseObject(JSON.toJSONString(chatService.deleteChat(obj), SerializerFeature.WriteMapNullValue,

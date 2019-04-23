@@ -23,7 +23,6 @@ public class HomeworkController {
     @PostMapping(value = "/getHomework")
     @ResponseBody
     public JSONObject getHomework(@RequestParam Map map) throws Exception {
-        System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         return JSONObject.parseObject(JSON.toJSONString(homeworkService.getHomeworkByUser(obj), SerializerFeature.WriteMapNullValue,
@@ -33,7 +32,6 @@ public class HomeworkController {
     @PostMapping(value = "/addHomework")
     @ResponseBody
     public JSONObject addHomework(@RequestParam Map map) throws Exception {
-        System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         return JSONObject.parseObject(JSON.toJSONString(homeworkService.addHomeworkByTeacher(obj), SerializerFeature.WriteMapNullValue,
@@ -43,7 +41,6 @@ public class HomeworkController {
     @PostMapping(value = "/deleteHomework")
     @ResponseBody
     public JSONObject deleteHomework(@RequestParam Map map) throws Exception {
-        System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         return JSONObject.parseObject(JSON.toJSONString(homeworkService.deleteHomeworkByTeacher(obj), SerializerFeature.WriteMapNullValue,
@@ -53,7 +50,6 @@ public class HomeworkController {
     @PostMapping(value = "/editHomework")
     @ResponseBody
     public JSONObject editHomework(@RequestParam Map map) throws Exception {
-        System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         return JSONObject.parseObject(JSON.toJSONString(homeworkService.editHomeworkByTeacher(obj), SerializerFeature.WriteMapNullValue,

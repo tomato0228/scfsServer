@@ -23,7 +23,6 @@ public class CourseController {
     @PostMapping(value = "/getCourse")
     @ResponseBody
     public JSONObject getCourse(@RequestParam Map map) throws Exception {
-        System.out.println(map.toString());
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         return JSONObject.parseObject(JSON.toJSONString(courseService.getCourseByUser(obj), SerializerFeature.WriteMapNullValue,
