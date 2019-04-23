@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.tomato.mapper.ContactViewMapper">
+  <resultMap id="BaseResultMap" type="ltd.tomato.model.ContactView">
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+    <result column="user_type" jdbcType="VARCHAR" property="userType" />
+    <result column="user_signature" jdbcType="VARCHAR" property="userSignature" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="chat_id" jdbcType="INTEGER" property="chatId" />
+    <result column="other_id" jdbcType="INTEGER" property="otherId" />
+    <result column="chat_date" jdbcType="TIMESTAMP" property="chatDate" />
+    <result column="chat_type" jdbcType="INTEGER" property="chatType" />
+    <result column="chat_mesg" jdbcType="BIGINT" property="chatMesg" />
+    <result column="chat_mesgnum" jdbcType="BIGINT" property="chatMesgnum" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="ltd.tomato.model.ContactView">
+    <result column="chat_content" jdbcType="LONGVARCHAR" property="chatContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, user_name, user_tel, user_type, user_signature, user_email, chat_id, other_id, 
+    chat_date, chat_type, chat_mesg, chat_mesgnum
+  </sql>
+  <sql id="Blob_Column_List">
+    chat_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="ltd.tomato.model.ContactViewExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from contact_view
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="ltd.tomato.model.ContactViewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from contact_view
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="ltd.tomato.model.ContactViewExample">
+    delete from contact_view
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ltd.tomato.model.ContactView">
+    insert into contact_view (user_id, user_name, user_tel, 
+      user_type, user_signature, user_email, 
+      chat_id, other_id, chat_date, 
+      chat_type, chat_mesg, chat_mesgnum, 
+      chat_content)
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userTel,jdbcType=VARCHAR}, 
+      #{userType,jdbcType=VARCHAR}, #{userSignature,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
+      #{chatId,jdbcType=INTEGER}, #{otherId,jdbcType=INTEGER}, #{chatDate,jdbcType=TIMESTAMP}, 
+      #{chatType,jdbcType=INTEGER}, #{chatMesg,jdbcType=BIGINT}, #{chatMesgnum,jdbcType=BIGINT}, 
+      #{chatContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="ltd.tomato.model.ContactView">
+    insert into contact_view
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userTel != null">
+        user_tel,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="userSignature != null">
+        user_signature,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="chatId != null">
+        chat_id,
+      </if>
+      <if test="otherId != null">
+        other_id,
+      </if>
+      <if test="chatDate != null">
+        chat_date,
+      </if>
+      <if test="chatType != null">
+        chat_type,
+      </if>
+      <if test="chatMesg != null">
+        chat_mesg,
+      </if>
+      <if test="chatMesgnum != null">
+        chat_mesgnum,
+      </if>
+      <if test="chatContent != null">
+        chat_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null">
+        #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="userSignature != null">
+        #{userSignature,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="chatId != null">
+        #{chatId,jdbcType=INTEGER},
+      </if>
+      <if test="otherId != null">
+        #{otherId,jdbcType=INTEGER},
+      </if>
+      <if test="chatDate != null">
+        #{chatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chatType != null">
+        #{chatType,jdbcType=INTEGER},
+      </if>
+      <if test="chatMesg != null">
+        #{chatMesg,jdbcType=BIGINT},
+      </if>
+      <if test="chatMesgnum != null">
+        #{chatMesgnum,jdbcType=BIGINT},
+      </if>
+      <if test="chatContent != null">
+        #{chatContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ltd.tomato.model.ContactViewExample" resultType="java.lang.Long">
+    select count(*) from contact_view
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update contact_view
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userTel != null">
+        user_tel = #{record.userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userType != null">
+        user_type = #{record.userType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSignature != null">
+        user_signature = #{record.userSignature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userEmail != null">
+        user_email = #{record.userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chatId != null">
+        chat_id = #{record.chatId,jdbcType=INTEGER},
+      </if>
+      <if test="record.otherId != null">
+        other_id = #{record.otherId,jdbcType=INTEGER},
+      </if>
+      <if test="record.chatDate != null">
+        chat_date = #{record.chatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.chatType != null">
+        chat_type = #{record.chatType,jdbcType=INTEGER},
+      </if>
+      <if test="record.chatMesg != null">
+        chat_mesg = #{record.chatMesg,jdbcType=BIGINT},
+      </if>
+      <if test="record.chatMesgnum != null">
+        chat_mesgnum = #{record.chatMesgnum,jdbcType=BIGINT},
+      </if>
+      <if test="record.chatContent != null">
+        chat_content = #{record.chatContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update contact_view
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_tel = #{record.userTel,jdbcType=VARCHAR},
+      user_type = #{record.userType,jdbcType=VARCHAR},
+      user_signature = #{record.userSignature,jdbcType=VARCHAR},
+      user_email = #{record.userEmail,jdbcType=VARCHAR},
+      chat_id = #{record.chatId,jdbcType=INTEGER},
+      other_id = #{record.otherId,jdbcType=INTEGER},
+      chat_date = #{record.chatDate,jdbcType=TIMESTAMP},
+      chat_type = #{record.chatType,jdbcType=INTEGER},
+      chat_mesg = #{record.chatMesg,jdbcType=BIGINT},
+      chat_mesgnum = #{record.chatMesgnum,jdbcType=BIGINT},
+      chat_content = #{record.chatContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update contact_view
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_tel = #{record.userTel,jdbcType=VARCHAR},
+      user_type = #{record.userType,jdbcType=VARCHAR},
+      user_signature = #{record.userSignature,jdbcType=VARCHAR},
+      user_email = #{record.userEmail,jdbcType=VARCHAR},
+      chat_id = #{record.chatId,jdbcType=INTEGER},
+      other_id = #{record.otherId,jdbcType=INTEGER},
+      chat_date = #{record.chatDate,jdbcType=TIMESTAMP},
+      chat_type = #{record.chatType,jdbcType=INTEGER},
+      chat_mesg = #{record.chatMesg,jdbcType=BIGINT},
+      chat_mesgnum = #{record.chatMesgnum,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
