@@ -31,12 +31,12 @@ public class ChatServiceImpl implements ChatService {
         Map<String, Object> resultSet = new HashMap<>(16);
         List<Chat> chats;
         try {
-            if (object.getInteger("sendId") != null && object.getInteger("receiveId") != null) {
+            if (object.getInteger("sendId") != null && object.getInteger("receiveId") != null && object.getInteger("chatMesg") != null) {
                 ChatExample chatExample = new ChatExample();
                 ChatExample.Criteria criteria = chatExample.createCriteria();
                 criteria.andSendIdEqualTo(object.getInteger("receiveId"));
                 criteria.andReceiveIdEqualTo(object.getInteger("sendId"));
-                if (object.getInteger("chatMesg") != null && object.getInteger("chatMesg") == 0) {
+                if (object.getInteger("chatMesg") == 0) {
                     criteria.andChatMesgEqualTo(0);
                 } else {
                     ChatExample.Criteria criteria_or = chatExample.createCriteria();
