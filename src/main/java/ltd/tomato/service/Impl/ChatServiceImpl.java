@@ -226,23 +226,24 @@ public class ChatServiceImpl implements ChatService {
                 chat.setChatType(object.getInteger("chatType"));
                 chat.setChatDate(new Date());
                 chat.setChatMesg(0);
-                status = chatMapper.insertSelective(chat);
+                chatMapper.insertSelective(chat);
+                status = chat.getChatId();
                 resultSet.put("status", 0);
                 resultSet.put("message", "发送消息成功！");
                 resultSet.put("total", total);
-                resultSet.put("data", String.valueOf(status));
+                resultSet.put("data", status);
             } else {
                 resultSet.put("status", 1);
                 resultSet.put("message", "发送消息失败！");
                 resultSet.put("total", 0);
-                resultSet.put("data", String.valueOf(0));
+                resultSet.put("data", 0);
             }
         } catch (Exception e) {
             e.printStackTrace();
             resultSet.put("status", 100);
             resultSet.put("message", "发送消息错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", String.valueOf(0));
+            resultSet.put("data", 0);
         }
         return resultSet;
     }
@@ -266,19 +267,19 @@ public class ChatServiceImpl implements ChatService {
                 resultSet.put("status", 0);
                 resultSet.put("message", "删除消息列表成功！");
                 resultSet.put("total", total);
-                resultSet.put("data", String.valueOf(status));
+                resultSet.put("data", status);
             } else {
                 resultSet.put("status", 0);
                 resultSet.put("message", "删除消息列表失败！");
                 resultSet.put("total", 0);
-                resultSet.put("data", String.valueOf(0));
+                resultSet.put("data", 0);
             }
         } catch (Exception e) {
             e.printStackTrace();
             resultSet.put("status", 100);
             resultSet.put("message", "删除消息列表错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", String.valueOf(0));
+            resultSet.put("data", 0);
         }
         return resultSet;
     }
@@ -294,19 +295,19 @@ public class ChatServiceImpl implements ChatService {
                 resultSet.put("status", 0);
                 resultSet.put("message", "删除消息成功！");
                 resultSet.put("total", total);
-                resultSet.put("data", String.valueOf(status));
+                resultSet.put("data", status);
             } else {
                 resultSet.put("status", 0);
                 resultSet.put("message", "删除消息失败！");
                 resultSet.put("total", 0);
-                resultSet.put("data", String.valueOf(0));
+                resultSet.put("data", 0);
             }
         } catch (Exception e) {
             e.printStackTrace();
             resultSet.put("status", 100);
             resultSet.put("message", "删除消息错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", String.valueOf(0));
+            resultSet.put("data", 0);
         }
         return resultSet;
     }

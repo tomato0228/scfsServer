@@ -115,7 +115,7 @@ public class HomeworkServiceImpl implements HomeworkService {
             resultSet.put("status", 100);
             resultSet.put("message", "增加作业错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", String.valueOf(0));
+            resultSet.put("data", 0);
         }
         return resultSet;
     }
@@ -132,13 +132,13 @@ public class HomeworkServiceImpl implements HomeworkService {
             resultSet.put("status", 0);
             resultSet.put("message", "删除作业成功！");
             resultSet.put("total", total);
-            resultSet.put("data", String.valueOf(status));
+            resultSet.put("data", status);
         } catch (Exception e) {
             e.printStackTrace();
             resultSet.put("status", 100);
             resultSet.put("message", "删除作业错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", String.valueOf(0));
+            resultSet.put("data", 0);
         }
         return resultSet;
     }
@@ -162,13 +162,13 @@ public class HomeworkServiceImpl implements HomeworkService {
             resultSet.put("status", 0);
             resultSet.put("message", "编辑作业成功！");
             resultSet.put("total", total);
-            resultSet.put("data", String.valueOf(status));
+            resultSet.put("data", status);
         } catch (Exception e) {
             e.printStackTrace();
             resultSet.put("status", 100);
             resultSet.put("message", "编辑作业错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", String.valueOf(0));
+            resultSet.put("data", 0);
         }
         return resultSet;
     }

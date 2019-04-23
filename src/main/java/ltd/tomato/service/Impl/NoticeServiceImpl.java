@@ -91,19 +91,20 @@ public class NoticeServiceImpl implements NoticeService {
                         notice.setNoticeAttachment(object.getString("noticeAttachment"));
                     }
                     notice.setNoticeDate(new Date());
-                    status = noticeMapper.insertSelective(notice);
+                    noticeMapper.insertSelective(notice);
+                    status = notice.getNoticeId();
                 }
             }
             resultSet.put("status", 0);
             resultSet.put("message", "增加通知成功！");
             resultSet.put("total", total);
-            resultSet.put("data", String.valueOf(status));
+            resultSet.put("data", status);
         } catch (Exception e) {
             e.printStackTrace();
             resultSet.put("status", 100);
             resultSet.put("message", "增加通知错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", String.valueOf(0));
+            resultSet.put("data", 0);
         }
         return resultSet;
     }
@@ -120,13 +121,13 @@ public class NoticeServiceImpl implements NoticeService {
             resultSet.put("status", 0);
             resultSet.put("message", "删除通知成功！");
             resultSet.put("total", total);
-            resultSet.put("data", String.valueOf(status));
+            resultSet.put("data", status);
         } catch (Exception e) {
             e.printStackTrace();
             resultSet.put("status", 100);
             resultSet.put("message", "删除通知错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", String.valueOf(0));
+            resultSet.put("data", 0);
         }
         return resultSet;
     }
@@ -153,13 +154,13 @@ public class NoticeServiceImpl implements NoticeService {
             resultSet.put("status", 0);
             resultSet.put("message", "编辑通知成功！");
             resultSet.put("total", total);
-            resultSet.put("data", String.valueOf(status));
+            resultSet.put("data", status);
         } catch (Exception e) {
             e.printStackTrace();
             resultSet.put("status", 100);
             resultSet.put("message", "编辑通知错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", String.valueOf(0));
+            resultSet.put("data", 0);
         }
         return resultSet;
     }
