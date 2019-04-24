@@ -11,12 +11,10 @@
     <result column="chat_id" jdbcType="INTEGER" property="chatId" />
     <result column="other_id" jdbcType="INTEGER" property="otherId" />
     <result column="chat_date" jdbcType="TIMESTAMP" property="chatDate" />
+    <result column="chat_content" jdbcType="VARCHAR" property="chatContent" />
     <result column="chat_type" jdbcType="INTEGER" property="chatType" />
     <result column="chat_mesg" jdbcType="BIGINT" property="chatMesg" />
     <result column="chat_mesgnum" jdbcType="BIGINT" property="chatMesgnum" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="ltd.tomato.model.ContactView">
-    <result column="chat_content" jdbcType="LONGVARCHAR" property="chatContent" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,35 +76,8 @@
   </sql>
   <sql id="Base_Column_List">
     user_id, user_name, user_tel, user_type, user_signature, user_email, chat_id, other_id, 
-    chat_date, chat_type, chat_mesg, chat_mesgnum
+    chat_date, chat_content, chat_type, chat_mesg, chat_mesgnum
   </sql>
-  <sql id="Blob_Column_List">
-    chat_content
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="ltd.tomato.model.ContactViewExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from contact_view
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-    <if test="limit != null">
-      <if test="offset != null">
-        limit ${offset}, ${limit}
-      </if>
-      <if test="offset == null">
-        limit ${limit}
-      </if>
-    </if>
-  </select>
   <select id="selectByExample" parameterType="ltd.tomato.model.ContactViewExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -139,13 +110,13 @@
     insert into contact_view (user_id, user_name, user_tel, 
       user_type, user_signature, user_email, 
       chat_id, other_id, chat_date, 
-      chat_type, chat_mesg, chat_mesgnum, 
-      chat_content)
+      chat_content, chat_type, chat_mesg, 
+      chat_mesgnum)
     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userTel,jdbcType=VARCHAR}, 
       #{userType,jdbcType=VARCHAR}, #{userSignature,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
       #{chatId,jdbcType=INTEGER}, #{otherId,jdbcType=INTEGER}, #{chatDate,jdbcType=TIMESTAMP}, 
-      #{chatType,jdbcType=INTEGER}, #{chatMesg,jdbcType=BIGINT}, #{chatMesgnum,jdbcType=BIGINT}, 
-      #{chatContent,jdbcType=LONGVARCHAR})
+      #{chatContent,jdbcType=VARCHAR}, #{chatType,jdbcType=INTEGER}, #{chatMesg,jdbcType=BIGINT}, 
+      #{chatMesgnum,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="ltd.tomato.model.ContactView">
     insert into contact_view
@@ -177,6 +148,9 @@
       <if test="chatDate != null">
         chat_date,
       </if>
+      <if test="chatContent != null">
+        chat_content,
+      </if>
       <if test="chatType != null">
         chat_type,
       </if>
@@ -185,9 +159,6 @@
       </if>
       <if test="chatMesgnum != null">
         chat_mesgnum,
-      </if>
-      <if test="chatContent != null">
-        chat_content,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -218,6 +189,9 @@
       <if test="chatDate != null">
         #{chatDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="chatContent != null">
+        #{chatContent,jdbcType=VARCHAR},
+      </if>
       <if test="chatType != null">
         #{chatType,jdbcType=INTEGER},
       </if>
@@ -226,9 +200,6 @@
       </if>
       <if test="chatMesgnum != null">
         #{chatMesgnum,jdbcType=BIGINT},
-      </if>
-      <if test="chatContent != null">
-        #{chatContent,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -268,6 +239,9 @@
       <if test="record.chatDate != null">
         chat_date = #{record.chatDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.chatContent != null">
+        chat_content = #{record.chatContent,jdbcType=VARCHAR},
+      </if>
       <if test="record.chatType != null">
         chat_type = #{record.chatType,jdbcType=INTEGER},
       </if>
@@ -277,29 +251,7 @@
       <if test="record.chatMesgnum != null">
         chat_mesgnum = #{record.chatMesgnum,jdbcType=BIGINT},
       </if>
-      <if test="record.chatContent != null">
-        chat_content = #{record.chatContent,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update contact_view
-    set user_id = #{record.userId,jdbcType=INTEGER},
-      user_name = #{record.userName,jdbcType=VARCHAR},
-      user_tel = #{record.userTel,jdbcType=VARCHAR},
-      user_type = #{record.userType,jdbcType=VARCHAR},
-      user_signature = #{record.userSignature,jdbcType=VARCHAR},
-      user_email = #{record.userEmail,jdbcType=VARCHAR},
-      chat_id = #{record.chatId,jdbcType=INTEGER},
-      other_id = #{record.otherId,jdbcType=INTEGER},
-      chat_date = #{record.chatDate,jdbcType=TIMESTAMP},
-      chat_type = #{record.chatType,jdbcType=INTEGER},
-      chat_mesg = #{record.chatMesg,jdbcType=BIGINT},
-      chat_mesgnum = #{record.chatMesgnum,jdbcType=BIGINT},
-      chat_content = #{record.chatContent,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -315,6 +267,7 @@
       chat_id = #{record.chatId,jdbcType=INTEGER},
       other_id = #{record.otherId,jdbcType=INTEGER},
       chat_date = #{record.chatDate,jdbcType=TIMESTAMP},
+      chat_content = #{record.chatContent,jdbcType=VARCHAR},
       chat_type = #{record.chatType,jdbcType=INTEGER},
       chat_mesg = #{record.chatMesg,jdbcType=BIGINT},
       chat_mesgnum = #{record.chatMesgnum,jdbcType=BIGINT}

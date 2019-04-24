@@ -29,6 +29,15 @@ public class ChatController {
                 SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
     }
 
+    @PostMapping(value = "/getChat")
+    @ResponseBody
+    public JSONObject getChat(@RequestParam Map map) throws Exception {
+        JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+        return JSONObject.parseObject(JSON.toJSONString(chatService.getChat(obj), SerializerFeature.WriteMapNullValue,
+                SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
+    }
+
     @PostMapping(value = "/getChatContacts")
     @ResponseBody
     public JSONObject getChatContacts(@RequestParam Map map) throws Exception {
@@ -51,6 +60,7 @@ public class ChatController {
     @ResponseBody
     public JSONObject addChat(@RequestParam Map map) throws Exception {
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
+        System.out.println(obj.toJSONString());
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         return JSONObject.parseObject(JSON.toJSONString(chatService.addChat(obj), SerializerFeature.WriteMapNullValue,
                 SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
@@ -71,6 +81,15 @@ public class ChatController {
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         return JSONObject.parseObject(JSON.toJSONString(chatService.deleteChat(obj), SerializerFeature.WriteMapNullValue,
+                SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
+    }
+
+    @PostMapping(value = "/updateChatByUser")
+    @ResponseBody
+    public JSONObject updateChatByUser(@RequestParam Map map) throws Exception {
+        JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+        return JSONObject.parseObject(JSON.toJSONString(chatService.updateChatByUser(obj), SerializerFeature.WriteMapNullValue,
                 SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
     }
 }

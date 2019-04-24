@@ -715,6 +715,76 @@ public class ContactViewExample {
             return (Criteria) this;
         }
 
+        public Criteria andChatContentIsNull() {
+            addCriterion("chat_content is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatContentIsNotNull() {
+            addCriterion("chat_content is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatContentEqualTo(String value) {
+            addCriterion("chat_content =", value, "chatContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatContentNotEqualTo(String value) {
+            addCriterion("chat_content <>", value, "chatContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatContentGreaterThan(String value) {
+            addCriterion("chat_content >", value, "chatContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatContentGreaterThanOrEqualTo(String value) {
+            addCriterion("chat_content >=", value, "chatContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatContentLessThan(String value) {
+            addCriterion("chat_content <", value, "chatContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatContentLessThanOrEqualTo(String value) {
+            addCriterion("chat_content <=", value, "chatContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatContentLike(String value) {
+            addCriterion("chat_content like", value, "chatContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatContentNotLike(String value) {
+            addCriterion("chat_content not like", value, "chatContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatContentIn(List<String> values) {
+            addCriterion("chat_content in", values, "chatContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatContentNotIn(List<String> values) {
+            addCriterion("chat_content not in", values, "chatContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatContentBetween(String value1, String value2) {
+            addCriterion("chat_content between", value1, value2, "chatContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatContentNotBetween(String value1, String value2) {
+            addCriterion("chat_content not between", value1, value2, "chatContent");
+            return (Criteria) this;
+        }
+
         public Criteria andChatTypeIsNull() {
             addCriterion("chat_type is null");
             return (Criteria) this;

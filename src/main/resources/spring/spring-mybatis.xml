@@ -19,20 +19,25 @@
     <context:property-placeholder location="classpath:properties/dataSource.properties"/>
 
     <!-- 配置关系型数据库连接池 -->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="${jdbc.driverClassName}"/>
-        <property name="jdbcUrl" value="${jdbc.url}"/>
-        <property name="user" value="${jdbc.username}"/>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
-        <property name="maxPoolSize" value="${c3p0.maxPoolSize}"/>
-        <property name="minPoolSize" value="${c3p0.minPoolSize}"/>
-        <property name="autoCommitOnClose" value="${c3p0.autoCommitOnClose}"/>
-        <property name="checkoutTimeout" value="${c3p0.checkoutTimeout}"/>
-        <property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}"/>
-        <property name="maxIdleTime" value="${c3p0.maxIdleTime}"/>
-        <property name="initialPoolSize" value="${c3p0.initialPoolSize}"/>
-        <property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}"/>
-        <property name="preferredTestQuery" value="${jdbc.validationQuery}"/>
+        <property name="filters" value="stat"/>
+        <property name="maxActive" value="20"/>
+        <property name="initialSize" value="1"/>
+        <property name="maxWait" value="60000"/>
+        <property name="minIdle" value="1"/>
+        <property name="timeBetweenEvictionRunsMillis" value="3000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+        <property name="connectionInitSqls" value="set names utf8mb4;"/>
     </bean>
 
     <!-- myBatis -->
@@ -78,8 +83,9 @@
     <!-- 配置事务切面,并关联事务的传播属性: 其实就是一个方法,只是这个方法是事务性的事务,它的发生不是随机的,而是具有时间,地点和该发生的故事的 -->
     <aop:config>
         <!-- 切点: 其实就是告诉了地点 -->
-        <aop:pointcut expression="execution(* ltd.tomato.service..*Impl.*(..)) or execution(* ltd.tomato.mapper.*.*(..))"
-                      id="pointCut"/>
+        <aop:pointcut
+                expression="execution(* ltd.tomato.service..*Impl.*(..)) or execution(* ltd.tomato.mapper.*.*(..))"
+                id="pointCut"/>
         <!-- 要执行那样的事务,那当然得需要通知,通知它什么时候发生,在哪里发生,发生啥事 -->
         <aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut"/>
     </aop:config>

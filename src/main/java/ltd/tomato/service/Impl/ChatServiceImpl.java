@@ -17,6 +17,8 @@ public class ChatServiceImpl implements ChatService {
     @Autowired(required = false)
     ChatViewMapper chatViewMapper;
     @Autowired(required = false)
+    ContactViewMapper contactViewMapper;
+    @Autowired(required = false)
     UserMapper userMapper;
     @Autowired(required = false)
     StudentMapper studentMapper;
@@ -29,9 +31,9 @@ public class ChatServiceImpl implements ChatService {
     public Map<String, Object> getChatList(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
-        List<Chat> chats;
         try {
             if (object.getInteger("sendId") != null && object.getInteger("receiveId") != null && object.getInteger("chatMesg") != null) {
+                List<Chat> chats;
                 ChatExample chatExample = new ChatExample();
                 ChatExample.Criteria criteria = chatExample.createCriteria();
                 criteria.andSendIdEqualTo(object.getInteger("receiveId"));
@@ -46,7 +48,9 @@ public class ChatServiceImpl implements ChatService {
                 }
                 chatExample.setOrderByClause("chat_date DESC");
                 chats = chatMapper.selectByExample(chatExample);
-                total = chats.size();
+                if (chats != null) {
+                    total = chats.size();
+                }
                 resultSet.put("status", 0);
                 resultSet.put("message", "获取消息列表成功！");
                 resultSet.put("total", total);
@@ -68,43 +72,48 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
+    public Map<String, Object> getChat(JSONObject object) {
+        int total = 0;
+        Map<String, Object> resultSet = new HashMap<>(16);
+        try {
+            if (object.getInteger("chatId") != null) {
+                Chat chat = chatMapper.selectByPrimaryKey(object.getInteger("chatId"));
+                total = chat == null ? 0 : 1;
+                resultSet.put("status", 0);
+                resultSet.put("message", "获取消息成功！");
+                resultSet.put("total", total);
+                resultSet.put("data", chat);
+            } else {
+                resultSet.put("status", 1);
+                resultSet.put("message", "获取消息失败！");
+                resultSet.put("total", total);
+                resultSet.put("data", null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultSet.put("status", 100);
+            resultSet.put("message", "获取消息错误！");
+            resultSet.put("total", 0);
+            resultSet.put("data", null);
+        }
+        return resultSet;
+    }
+
+    @Override
     public Map<String, Object> getChatContactsByUser(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
-        List<User> users;
         try {
             if (object.getInteger("userId") != null) {
-                User user = userMapper.selectByPrimaryKey(object.getInteger("userId"));
-                ChatExample chatExample = new ChatExample();
-                ChatExample.Criteria criteria = chatExample.createCriteria();
-                ChatExample.Criteria criteria_or = chatExample.createCriteria();
-                criteria.andSendIdEqualTo(user.getUserId());
-                criteria_or.andReceiveIdEqualTo(user.getUserId());
-                chatExample.or(criteria_or);
-                List<Chat> chats;
-                chats = chatMapper.selectByExample(chatExample);
-                List<Integer> userIds = new ArrayList<>(16);
-                for (Chat c : chats) {
-                    if (c.getSendId().equals(user.getUserId()) && !userIds.contains(c.getReceiveId())) {
-                        userIds.add(c.getReceiveId());
-                    } else if (c.getReceiveId().equals(user.getUserId()) && !userIds.contains(c.getSendId())) {
-                        userIds.add(c.getSendId());
-                    }
-                }
-                if (userIds.size() > 0) {
-                    UserExample userExample = new UserExample();
-                    UserExample.Criteria criteria_u = userExample.createCriteria();
-                    criteria_u.andUserIdIn(userIds);
-                    criteria_u.andUserIdNotEqualTo(user.getUserId());
-                    users = userMapper.selectByExample(userExample);
-                } else {
-                    users = new ArrayList<>(16);
-                }
-                total = users.size();
+                ContactViewExample contactViewsExample = new ContactViewExample();
+                ContactViewExample.Criteria criteria = contactViewsExample.createCriteria();
+                criteria.andOtherIdEqualTo(object.getInteger("userId"));
+                List<ContactView> contactViews = contactViewMapper.selectByExample(contactViewsExample);
+                total = contactViews.size();
                 resultSet.put("status", 0);
                 resultSet.put("message", "获取已聊天联系人列表成功！");
                 resultSet.put("total", total);
-                resultSet.put("data", users);
+                resultSet.put("data", contactViews);
             } else {
                 resultSet.put("status", 1);
                 resultSet.put("message", "获取已聊天联系人列表失败！");
@@ -125,9 +134,9 @@ public class ChatServiceImpl implements ChatService {
     public Map<String, Object> getContactsByUser(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
-        List<User> users;
         try {
             if (object.getInteger("userId") != null && !StringUtil.isNULLOREmpty(object.getString("contactsType"))) {
+                List<User> users;
                 User user = userMapper.selectByPrimaryKey(object.getInteger("userId"));
                 Integer classId;
                 List<Integer> userIds = new ArrayList<>(16);
@@ -216,11 +225,11 @@ public class ChatServiceImpl implements ChatService {
     public Map<String, Object> addChat(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
-        int status;
         try {
             if (object.getInteger("sendId") != null && object.getInteger("receiveId") != null && object.getInteger("chatType") != null && !StringUtil.isNULLOREmpty(object.getString("chatContent"))) {
+                int status;
                 Chat chat = new Chat();
-                chat.setSendId(object.getInteger("userId"));
+                chat.setSendId(object.getInteger("sendId"));
                 chat.setReceiveId(object.getInteger("receiveId"));
                 chat.setChatContent(object.getString("chatContent"));
                 chat.setChatType(object.getInteger("chatType"));
@@ -252,9 +261,9 @@ public class ChatServiceImpl implements ChatService {
     public Map<String, Object> deleteChatList(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
-        int status;
         try {
             if (object.getInteger("sendId") != null && object.getInteger("receiveId") != null) {
+                int status;
                 ChatExample chatExample = new ChatExample();
                 ChatExample.Criteria criteria = chatExample.createCriteria();
                 criteria.andSendIdEqualTo(object.getInteger("sendId"));
@@ -288,9 +297,9 @@ public class ChatServiceImpl implements ChatService {
     public Map<String, Object> deleteChat(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
-        int status;
         try {
             if (object.getInteger("chatId") != null) {
+                int status;
                 status = chatMapper.deleteByPrimaryKey(object.getInteger("chatId"));
                 resultSet.put("status", 0);
                 resultSet.put("message", "删除消息成功！");
@@ -306,6 +315,43 @@ public class ChatServiceImpl implements ChatService {
             e.printStackTrace();
             resultSet.put("status", 100);
             resultSet.put("message", "删除消息错误！");
+            resultSet.put("total", 0);
+            resultSet.put("data", 0);
+        }
+        return resultSet;
+    }
+
+    @Override
+    public Map<String, Object> updateChatByUser(JSONObject object) {
+        int total = 0;
+        Map<String, Object> resultSet = new HashMap<>(16);
+        try {
+            if (object.getInteger("sendId") != null && object.getInteger("receiveId") != null) {
+                int status = 0;
+                ChatExample chatExample = new ChatExample();
+                ChatExample.Criteria criteria = chatExample.createCriteria();
+                criteria.andSendIdEqualTo(object.getInteger("sendId"));
+                criteria.andReceiveIdEqualTo(object.getInteger("receiveId"));
+                criteria.andChatMesgEqualTo(0);
+                List<Chat> chats = chatMapper.selectByExample(chatExample);
+                for (Chat c : chats) {
+                    c.setChatMesg(1);
+                    status += chatMapper.updateByPrimaryKeySelective(c);
+                }
+                resultSet.put("status", 0);
+                resultSet.put("message", "已读消息列表成功！");
+                resultSet.put("total", total);
+                resultSet.put("data", status);
+            } else {
+                resultSet.put("status", 0);
+                resultSet.put("message", "已读消息列表失败！");
+                resultSet.put("total", 0);
+                resultSet.put("data", 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultSet.put("status", 100);
+            resultSet.put("message", "已读消息列表错误！");
             resultSet.put("total", 0);
             resultSet.put("data", 0);
         }

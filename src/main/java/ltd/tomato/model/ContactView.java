@@ -26,13 +26,13 @@ public class ContactView implements Serializable {
 
     private Date chatDate;
 
+    private String chatContent;
+
     private Integer chatType;
 
     private Long chatMesg;
 
     private Long chatMesgnum;
-
-    private String chatContent;
 
     private static final long serialVersionUID = 1L;
 
@@ -108,6 +108,14 @@ public class ContactView implements Serializable {
         this.chatDate = chatDate;
     }
 
+    public String getChatContent() {
+        return chatContent;
+    }
+
+    public void setChatContent(String chatContent) {
+        this.chatContent = chatContent;
+    }
+
     public Integer getChatType() {
         return chatType;
     }
@@ -132,14 +140,6 @@ public class ContactView implements Serializable {
         this.chatMesgnum = chatMesgnum;
     }
 
-    public String getChatContent() {
-        return chatContent;
-    }
-
-    public void setChatContent(String chatContent) {
-        this.chatContent = chatContent;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -161,10 +161,10 @@ public class ContactView implements Serializable {
             && (this.getChatId() == null ? other.getChatId() == null : this.getChatId().equals(other.getChatId()))
             && (this.getOtherId() == null ? other.getOtherId() == null : this.getOtherId().equals(other.getOtherId()))
             && (this.getChatDate() == null ? other.getChatDate() == null : this.getChatDate().equals(other.getChatDate()))
+            && (this.getChatContent() == null ? other.getChatContent() == null : this.getChatContent().equals(other.getChatContent()))
             && (this.getChatType() == null ? other.getChatType() == null : this.getChatType().equals(other.getChatType()))
             && (this.getChatMesg() == null ? other.getChatMesg() == null : this.getChatMesg().equals(other.getChatMesg()))
-            && (this.getChatMesgnum() == null ? other.getChatMesgnum() == null : this.getChatMesgnum().equals(other.getChatMesgnum()))
-            && (this.getChatContent() == null ? other.getChatContent() == null : this.getChatContent().equals(other.getChatContent()));
+            && (this.getChatMesgnum() == null ? other.getChatMesgnum() == null : this.getChatMesgnum().equals(other.getChatMesgnum()));
     }
 
     @Override
@@ -180,10 +180,10 @@ public class ContactView implements Serializable {
         result = prime * result + ((getChatId() == null) ? 0 : getChatId().hashCode());
         result = prime * result + ((getOtherId() == null) ? 0 : getOtherId().hashCode());
         result = prime * result + ((getChatDate() == null) ? 0 : getChatDate().hashCode());
+        result = prime * result + ((getChatContent() == null) ? 0 : getChatContent().hashCode());
         result = prime * result + ((getChatType() == null) ? 0 : getChatType().hashCode());
         result = prime * result + ((getChatMesg() == null) ? 0 : getChatMesg().hashCode());
         result = prime * result + ((getChatMesgnum() == null) ? 0 : getChatMesgnum().hashCode());
-        result = prime * result + ((getChatContent() == null) ? 0 : getChatContent().hashCode());
         return result;
     }
 
@@ -202,10 +202,10 @@ public class ContactView implements Serializable {
         sb.append(", chatId=").append(chatId);
         sb.append(", otherId=").append(otherId);
         sb.append(", chatDate=").append(chatDate);
+        sb.append(", chatContent=").append(chatContent);
         sb.append(", chatType=").append(chatType);
         sb.append(", chatMesg=").append(chatMesg);
         sb.append(", chatMesgnum=").append(chatMesgnum);
-        sb.append(", chatContent=").append(chatContent);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
