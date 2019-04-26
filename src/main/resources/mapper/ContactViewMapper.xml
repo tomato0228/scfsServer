@@ -8,6 +8,10 @@
     <result column="user_type" jdbcType="VARCHAR" property="userType" />
     <result column="user_signature" jdbcType="VARCHAR" property="userSignature" />
     <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_profile" jdbcType="VARCHAR" property="userProfile" />
+    <result column="user_birth" jdbcType="DATE" property="userBirth" />
+    <result column="user_addr" jdbcType="VARCHAR" property="userAddr" />
+    <result column="user_sex" jdbcType="VARCHAR" property="userSex" />
     <result column="chat_id" jdbcType="INTEGER" property="chatId" />
     <result column="other_id" jdbcType="INTEGER" property="otherId" />
     <result column="chat_date" jdbcType="TIMESTAMP" property="chatDate" />
@@ -75,8 +79,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, user_name, user_tel, user_type, user_signature, user_email, chat_id, other_id, 
-    chat_date, chat_content, chat_type, chat_mesg, chat_mesgnum
+    user_id, user_name, user_tel, user_type, user_signature, user_email, user_profile, 
+    user_birth, user_addr, user_sex, chat_id, other_id, chat_date, chat_content, chat_type, 
+    chat_mesg, chat_mesgnum
   </sql>
   <select id="selectByExample" parameterType="ltd.tomato.model.ContactViewExample" resultMap="BaseResultMap">
     select
@@ -109,14 +114,16 @@
   <insert id="insert" parameterType="ltd.tomato.model.ContactView">
     insert into contact_view (user_id, user_name, user_tel, 
       user_type, user_signature, user_email, 
-      chat_id, other_id, chat_date, 
-      chat_content, chat_type, chat_mesg, 
-      chat_mesgnum)
+      user_profile, user_birth, user_addr, 
+      user_sex, chat_id, other_id, 
+      chat_date, chat_content, chat_type, 
+      chat_mesg, chat_mesgnum)
     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userTel,jdbcType=VARCHAR}, 
       #{userType,jdbcType=VARCHAR}, #{userSignature,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
-      #{chatId,jdbcType=INTEGER}, #{otherId,jdbcType=INTEGER}, #{chatDate,jdbcType=TIMESTAMP}, 
-      #{chatContent,jdbcType=VARCHAR}, #{chatType,jdbcType=INTEGER}, #{chatMesg,jdbcType=BIGINT}, 
-      #{chatMesgnum,jdbcType=BIGINT})
+      #{userProfile,jdbcType=VARCHAR}, #{userBirth,jdbcType=DATE}, #{userAddr,jdbcType=VARCHAR}, 
+      #{userSex,jdbcType=VARCHAR}, #{chatId,jdbcType=INTEGER}, #{otherId,jdbcType=INTEGER}, 
+      #{chatDate,jdbcType=TIMESTAMP}, #{chatContent,jdbcType=VARCHAR}, #{chatType,jdbcType=INTEGER}, 
+      #{chatMesg,jdbcType=BIGINT}, #{chatMesgnum,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="ltd.tomato.model.ContactView">
     insert into contact_view
@@ -138,6 +145,18 @@
       </if>
       <if test="userEmail != null">
         user_email,
+      </if>
+      <if test="userProfile != null">
+        user_profile,
+      </if>
+      <if test="userBirth != null">
+        user_birth,
+      </if>
+      <if test="userAddr != null">
+        user_addr,
+      </if>
+      <if test="userSex != null">
+        user_sex,
       </if>
       <if test="chatId != null">
         chat_id,
@@ -179,6 +198,18 @@
       </if>
       <if test="userEmail != null">
         #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfile != null">
+        #{userProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirth != null">
+        #{userBirth,jdbcType=DATE},
+      </if>
+      <if test="userAddr != null">
+        #{userAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=VARCHAR},
       </if>
       <if test="chatId != null">
         #{chatId,jdbcType=INTEGER},
@@ -230,6 +261,18 @@
       <if test="record.userEmail != null">
         user_email = #{record.userEmail,jdbcType=VARCHAR},
       </if>
+      <if test="record.userProfile != null">
+        user_profile = #{record.userProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userBirth != null">
+        user_birth = #{record.userBirth,jdbcType=DATE},
+      </if>
+      <if test="record.userAddr != null">
+        user_addr = #{record.userAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSex != null">
+        user_sex = #{record.userSex,jdbcType=VARCHAR},
+      </if>
       <if test="record.chatId != null">
         chat_id = #{record.chatId,jdbcType=INTEGER},
       </if>
@@ -264,6 +307,10 @@
       user_type = #{record.userType,jdbcType=VARCHAR},
       user_signature = #{record.userSignature,jdbcType=VARCHAR},
       user_email = #{record.userEmail,jdbcType=VARCHAR},
+      user_profile = #{record.userProfile,jdbcType=VARCHAR},
+      user_birth = #{record.userBirth,jdbcType=DATE},
+      user_addr = #{record.userAddr,jdbcType=VARCHAR},
+      user_sex = #{record.userSex,jdbcType=VARCHAR},
       chat_id = #{record.chatId,jdbcType=INTEGER},
       other_id = #{record.otherId,jdbcType=INTEGER},
       chat_date = #{record.chatDate,jdbcType=TIMESTAMP},

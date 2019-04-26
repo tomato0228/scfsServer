@@ -5,8 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.Map;
 
 public interface SchoolService {
-
-
     /**
      * 按用户查找学校信息
      *

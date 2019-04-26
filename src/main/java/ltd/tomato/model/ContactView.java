@@ -20,6 +20,14 @@ public class ContactView implements Serializable {
 
     private String userEmail;
 
+    private String userProfile;
+
+    private Date userBirth;
+
+    private String userAddr;
+
+    private String userSex;
+
     private Integer chatId;
 
     private Integer otherId;
@@ -82,6 +90,38 @@ public class ContactView implements Serializable {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public String getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(String userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    public Date getUserBirth() {
+        return userBirth;
+    }
+
+    public void setUserBirth(Date userBirth) {
+        this.userBirth = userBirth;
+    }
+
+    public String getUserAddr() {
+        return userAddr;
+    }
+
+    public void setUserAddr(String userAddr) {
+        this.userAddr = userAddr;
+    }
+
+    public String getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(String userSex) {
+        this.userSex = userSex;
     }
 
     public Integer getChatId() {
@@ -158,6 +198,10 @@ public class ContactView implements Serializable {
             && (this.getUserType() == null ? other.getUserType() == null : this.getUserType().equals(other.getUserType()))
             && (this.getUserSignature() == null ? other.getUserSignature() == null : this.getUserSignature().equals(other.getUserSignature()))
             && (this.getUserEmail() == null ? other.getUserEmail() == null : this.getUserEmail().equals(other.getUserEmail()))
+            && (this.getUserProfile() == null ? other.getUserProfile() == null : this.getUserProfile().equals(other.getUserProfile()))
+            && (this.getUserBirth() == null ? other.getUserBirth() == null : this.getUserBirth().equals(other.getUserBirth()))
+            && (this.getUserAddr() == null ? other.getUserAddr() == null : this.getUserAddr().equals(other.getUserAddr()))
+            && (this.getUserSex() == null ? other.getUserSex() == null : this.getUserSex().equals(other.getUserSex()))
             && (this.getChatId() == null ? other.getChatId() == null : this.getChatId().equals(other.getChatId()))
             && (this.getOtherId() == null ? other.getOtherId() == null : this.getOtherId().equals(other.getOtherId()))
             && (this.getChatDate() == null ? other.getChatDate() == null : this.getChatDate().equals(other.getChatDate()))
@@ -177,6 +221,10 @@ public class ContactView implements Serializable {
         result = prime * result + ((getUserType() == null) ? 0 : getUserType().hashCode());
         result = prime * result + ((getUserSignature() == null) ? 0 : getUserSignature().hashCode());
         result = prime * result + ((getUserEmail() == null) ? 0 : getUserEmail().hashCode());
+        result = prime * result + ((getUserProfile() == null) ? 0 : getUserProfile().hashCode());
+        result = prime * result + ((getUserBirth() == null) ? 0 : getUserBirth().hashCode());
+        result = prime * result + ((getUserAddr() == null) ? 0 : getUserAddr().hashCode());
+        result = prime * result + ((getUserSex() == null) ? 0 : getUserSex().hashCode());
         result = prime * result + ((getChatId() == null) ? 0 : getChatId().hashCode());
         result = prime * result + ((getOtherId() == null) ? 0 : getOtherId().hashCode());
         result = prime * result + ((getChatDate() == null) ? 0 : getChatDate().hashCode());
@@ -199,6 +247,10 @@ public class ContactView implements Serializable {
         sb.append(", userType=").append(userType);
         sb.append(", userSignature=").append(userSignature);
         sb.append(", userEmail=").append(userEmail);
+        sb.append(", userProfile=").append(userProfile);
+        sb.append(", userBirth=").append(userBirth);
+        sb.append(", userAddr=").append(userAddr);
+        sb.append(", userSex=").append(userSex);
         sb.append(", chatId=").append(chatId);
         sb.append(", otherId=").append(otherId);
         sb.append(", chatDate=").append(chatDate);

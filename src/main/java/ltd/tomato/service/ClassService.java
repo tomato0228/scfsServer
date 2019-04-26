@@ -5,8 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.Map;
 
 public interface ClassService {
-
-
     /**
      * 按用户ID查找班级
      *

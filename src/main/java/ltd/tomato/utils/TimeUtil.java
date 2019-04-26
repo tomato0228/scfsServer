@@ -230,6 +230,19 @@ public class TimeUtil {
 		return df.parse(datetime);// 将字符串转换为date类型
 	}
 
+	/**
+	 * 将字符串返回成util.Date型日期
+	 *
+	 * @param datetime
+	 *            格式为"yyyy-MM-dd"
+	 * @return 日期格式
+	 * @throws Exception
+	 */
+	public static Date dateFormatYMD(String datetime) throws Exception {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 创建日期转换对象HH:mm:ss为时分秒，年月日为yyyy-MM-dd
+		return df.parse(datetime);// 将字符串转换为date类型
+	}
+
 	public static String timestampToString(Timestamp ts) throws Exception {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");// 创建日期转换对象HH:mm为时分，年月日为yyyy-MM-dd
 		return df.format(ts);

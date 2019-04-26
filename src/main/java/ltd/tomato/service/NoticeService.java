@@ -27,7 +27,7 @@ public interface NoticeService {
      * 教师删除通知
      *
      * @param object 教师：通知ID
-     * @return 返回是否增加成功
+     * @return 返回状态
      * @throws Exception 处理异常
      */
     Map<String, Object> deleteNoticeByTeacher(JSONObject object) throws Exception;
@@ -36,7 +36,7 @@ public interface NoticeService {
      * 教师编辑通知
      *
      * @param object 教师：通知ID + 内容
-     * @return 返回是否增加成功
+     * @return 返回状态
      * @throws Exception 处理异常
      */
     Map<String, Object> editNoticeByTeacher(JSONObject object) throws Exception;
