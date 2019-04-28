@@ -2,10 +2,7 @@ package ltd.tomato.service.Impl;
 
 import com.alibaba.fastjson.JSONObject;
 import ltd.tomato.mapper.*;
-import ltd.tomato.model.Notice;
-import ltd.tomato.model.NoticeView;
-import ltd.tomato.model.NoticeViewExample;
-import ltd.tomato.model.User;
+import ltd.tomato.model.*;
 import ltd.tomato.service.NoticeService;
 import ltd.tomato.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +25,7 @@ public class NoticeServiceImpl implements NoticeService {
     ParentsMapper parentsMapper;
 
     @Override
-    public Map<String, Object> getNoticeByUser(JSONObject object) throws Exception {
+    public Map<String, Object> getNoticeByUser(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
 
@@ -48,7 +45,11 @@ public class NoticeServiceImpl implements NoticeService {
                     }
                 } else {
                     if (user.getUserType().equals("家长")) {
-                        user = userMapper.selectByPrimaryKey(parentsMapper.selectByPrimaryKey(user.getUserId()).getStudentId());
+                        ParentsExample parentsExample = new ParentsExample();
+                        ParentsExample.Criteria criteria_p = parentsExample.createCriteria();
+                        criteria_p.andParentsIdEqualTo(user.getUserId());
+                        criteria_p.andStudentIdEqualTo(object.getInteger("studentId"));
+                        user = userMapper.selectByPrimaryKey(parentsMapper.selectByExample(parentsExample).get(0).getStudentId());
                     }
                     int classId = studentMapper.selectByPrimaryKey(user.getUserId()).getClassId();
                     criteria.andClassIdEqualTo(classId);
@@ -66,7 +67,7 @@ public class NoticeServiceImpl implements NoticeService {
             resultSet.put("status", 100);
             resultSet.put("message", "获取通知列表错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", new ArrayList<>());
+            resultSet.put("data", null);
         }
         return resultSet;
     }

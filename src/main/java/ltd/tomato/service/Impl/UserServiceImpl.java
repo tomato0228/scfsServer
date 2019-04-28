@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import ltd.tomato.mapper.ParentsMapper;
 import ltd.tomato.mapper.UserMapper;
 import ltd.tomato.model.Parents;
+import ltd.tomato.model.ParentsExample;
 import ltd.tomato.model.User;
 import ltd.tomato.model.UserExample;
 import ltd.tomato.service.UserService;
@@ -14,10 +15,7 @@ import ltd.tomato.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("User")
 public class UserServiceImpl implements UserService {
@@ -52,8 +50,14 @@ public class UserServiceImpl implements UserService {
             }
             if (user != null && Password.md5(password).equals(user.getUserPassword())) {
                 int total = 1;
-                if (user.getUserType().equals("家长") && parentsMapper.selectByPrimaryKey(user.getUserId()) == null) {
-                    total = 0;
+                if (user.getUserType().equals("家长")) {
+                    ParentsExample parentsExample = new ParentsExample();
+                    ParentsExample.Criteria criteria_p = parentsExample.createCriteria();
+                    criteria_p.andParentsIdEqualTo(user.getUserId());
+                    List<Parents> parents = parentsMapper.selectByExample(parentsExample);
+                    if (parents == null || parents.size() == 0) {
+                        total = 0;
+                    }
                 }
                 resultSet.put("status", 0);
                 resultSet.put("message", "登陆成功！");
@@ -242,6 +246,128 @@ public class UserServiceImpl implements UserService {
             resultSet.put("message", "获取验证错误！");
             resultSet.put("total", 0);
             resultSet.put("data", 0);
+        }
+        return resultSet;
+    }
+
+    @Override
+    public Map<String, Object> searchUser(JSONObject object) {
+        Map<String, Object> resultSet = new HashMap<>(16);
+        try {
+            if (object.getInteger("userId") != null && !StringUtil.isNULLOREmpty(object.getString("keywords")) && object.getBoolean("addParents")) {
+                int total = 0;
+                UserExample userExample = new UserExample();
+                UserExample.Criteria criteria = userExample.createCriteria();
+                criteria.andUserNameLike("%" + object.getString("keywords") + "%");
+                UserExample.Criteria criteria_e = userExample.createCriteria();
+                criteria_e.andUserEmailLike("%" + object.getString("keywords") + "%");
+                UserExample.Criteria criteria_t = userExample.createCriteria();
+                criteria_t.andUserTelLike("%" + object.getString("keywords") + "%");
+                userExample.or(criteria_e);
+                userExample.or(criteria_t);
+                List<User> users = userMapper.selectByExample(userExample);
+                if (users != null) {
+                    total = users.size();
+                }
+                resultSet.put("status", 0);
+                resultSet.put("message", "获取列表成功！");
+                resultSet.put("total", total);
+                resultSet.put("data", users);
+            } else {
+                resultSet.put("status", 1);
+                resultSet.put("message", "获取列表失败！");
+                resultSet.put("total", 0);
+                resultSet.put("data", null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultSet.put("status", 100);
+            resultSet.put("message", "获取列表错误！");
+            resultSet.put("total", 0);
+            resultSet.put("data", null);
+        }
+        return resultSet;
+    }
+
+    @Override
+    public Map<String, Object> addParents(JSONObject object) {
+        Map<String, Object> resultSet = new HashMap<>(16);
+        try {
+            if (object.getInteger("userId") != null && object.getInteger("parentsId") != null && !StringUtil.isNULLOREmpty(object.getString("parentsRelation"))) {
+                int total = 0;
+                Parents parents = new Parents();
+                parents.setStudentId(object.getInteger("userId"));
+                parents.setParentsId(object.getInteger("parentsId"));
+                parents.setParentsRelation(object.getString("parentsRelation"));
+                ParentsExample parentsExample = new ParentsExample();
+                ParentsExample.Criteria criteria = parentsExample.createCriteria();
+                criteria.andStudentIdEqualTo(parents.getStudentId());
+                criteria.andParentsIdEqualTo(parents.getParentsId());
+                List<Parents> parentsList = parentsMapper.selectByExample(parentsExample);
+                if (parentsList != null && parentsList.size() > 0) {
+                    parents.setParentsKey(parentsList.get(0).getParentsKey());
+                    parentsMapper.updateByPrimaryKeySelective(parents);
+                } else {
+                    parentsMapper.insertSelective(parents);
+                }
+                resultSet.put("status", 0);
+                resultSet.put("message", "添加家长成功！");
+                resultSet.put("total", total);
+                resultSet.put("data", 1);
+            } else {
+                resultSet.put("status", 1);
+                resultSet.put("message", "添加家长失败！");
+                resultSet.put("total", 0);
+                resultSet.put("data", 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultSet.put("status", 100);
+            resultSet.put("message", "添加家长错误！");
+            resultSet.put("total", 0);
+            resultSet.put("data", 0);
+        }
+        return resultSet;
+    }
+
+    @Override
+    public Map<String, Object> getStudentList(JSONObject object) {
+        Map<String, Object> resultSet = new HashMap<>(16);
+        try {
+            if (object.getInteger("userId") != null) {
+                int total = 0;
+                List<User> users = null;
+                ParentsExample parentsExample = new ParentsExample();
+                ParentsExample.Criteria criteria = parentsExample.createCriteria();
+                criteria.andParentsIdEqualTo(object.getInteger("userId"));
+                List<Parents> parentsList = parentsMapper.selectByExample(parentsExample);
+                if (parentsList != null && parentsList.size() > 0) {
+                    List<Integer> userIds = new ArrayList<>(16);
+                    for (Parents p : parentsList) {
+                        userIds.add(p.getStudentId());
+                    }
+                    UserExample userExample = new UserExample();
+                    UserExample.Criteria criteria_u = userExample.createCriteria();
+                    criteria_u.andUserIdIn(userIds);
+                    users = userMapper.selectByExample(userExample);
+                    total = users.size();
+                }
+                resultSet.put("status", 0);
+                resultSet.put("message", "家长获取学生列表成功！");
+                resultSet.put("total", total);
+                resultSet.put("data", users);
+            } else {
+                resultSet.put("status", 1);
+                resultSet.put("message", "家长获取学生列表失败！");
+                resultSet.put("total", 0);
+                resultSet.put("data", null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultSet.put("status", 100);
+            resultSet.put("message", "家长获取学生列表错误！");
+            resultSet.put("total", 0);
+            resultSet.put("data", null);
         }
         return resultSet;
     }

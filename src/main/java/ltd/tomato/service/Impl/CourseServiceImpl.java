@@ -27,7 +27,7 @@ public class CourseServiceImpl implements CourseService {
     TclassMapper tclassMapper;
 
     @Override
-    public Map<String, Object> getCourseByUser(JSONObject object) throws Exception {
+    public Map<String, Object> getCourseByUser(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
 
@@ -45,7 +45,11 @@ public class CourseServiceImpl implements CourseService {
                     criteria_t.andTclassValidationEqualTo("审核通过");
                 } else {
                     if (user.getUserType().equals("家长")) {
-                        user = userMapper.selectByPrimaryKey(parentsMapper.selectByPrimaryKey(user.getUserId()).getStudentId());
+                        ParentsExample parentsExample = new ParentsExample();
+                        ParentsExample.Criteria criteria_p = parentsExample.createCriteria();
+                        criteria_p.andParentsIdEqualTo(user.getUserId());
+                        criteria_p.andStudentIdEqualTo(object.getInteger("studentId"));
+                        user = userMapper.selectByPrimaryKey(parentsMapper.selectByExample(parentsExample).get(0).getStudentId());
                     }
                     int classId = studentMapper.selectByPrimaryKey(user.getUserId()).getClassId();
                     criteria_t.andClassIdEqualTo(classId);
@@ -70,7 +74,7 @@ public class CourseServiceImpl implements CourseService {
             resultSet.put("status", 100);
             resultSet.put("message", "获取课程列表错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", new ArrayList<>());
+            resultSet.put("data", null);
         }
         return resultSet;
     }

@@ -8,6 +8,11 @@ import java.io.Serializable;
  */
 public class Parents implements Serializable {
     /**
+     * 家长关系key
+     */
+    private Integer parentsKey;
+
+    /**
      * 家长ID
      */
     private Integer parentsId;
@@ -23,6 +28,14 @@ public class Parents implements Serializable {
     private Integer studentId;
 
     private static final long serialVersionUID = 1L;
+
+    public Integer getParentsKey() {
+        return parentsKey;
+    }
+
+    public void setParentsKey(Integer parentsKey) {
+        this.parentsKey = parentsKey;
+    }
 
     public Integer getParentsId() {
         return parentsId;
@@ -60,7 +73,8 @@ public class Parents implements Serializable {
             return false;
         }
         Parents other = (Parents) that;
-        return (this.getParentsId() == null ? other.getParentsId() == null : this.getParentsId().equals(other.getParentsId()))
+        return (this.getParentsKey() == null ? other.getParentsKey() == null : this.getParentsKey().equals(other.getParentsKey()))
+            && (this.getParentsId() == null ? other.getParentsId() == null : this.getParentsId().equals(other.getParentsId()))
             && (this.getParentsRelation() == null ? other.getParentsRelation() == null : this.getParentsRelation().equals(other.getParentsRelation()))
             && (this.getStudentId() == null ? other.getStudentId() == null : this.getStudentId().equals(other.getStudentId()));
     }
@@ -69,6 +83,7 @@ public class Parents implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getParentsKey() == null) ? 0 : getParentsKey().hashCode());
         result = prime * result + ((getParentsId() == null) ? 0 : getParentsId().hashCode());
         result = prime * result + ((getParentsRelation() == null) ? 0 : getParentsRelation().hashCode());
         result = prime * result + ((getStudentId() == null) ? 0 : getStudentId().hashCode());
@@ -81,6 +96,7 @@ public class Parents implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", parentsKey=").append(parentsKey);
         sb.append(", parentsId=").append(parentsId);
         sb.append(", parentsRelation=").append(parentsRelation);
         sb.append(", studentId=").append(studentId);

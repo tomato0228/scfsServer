@@ -34,7 +34,7 @@ public class SchoolServiceImpl implements SchoolService {
     CollegeMapper collegeMapper;
 
     @Override
-    public Map<String, Object> getSchoolByUserId(JSONObject object) throws Exception {
+    public Map<String, Object> getSchoolByUserId(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
 
@@ -59,7 +59,11 @@ public class SchoolServiceImpl implements SchoolService {
                     if (user.getUserType().equals("学生")) {
                         student = studentMapper.selectByPrimaryKey(user.getUserId());
                     } else if (user.getUserType().equals("家长")) {
-                        student = studentMapper.selectByPrimaryKey(parentsMapper.selectByPrimaryKey(user.getUserId()).getStudentId());
+                        ParentsExample parentsExample = new ParentsExample();
+                        ParentsExample.Criteria criteria_p = parentsExample.createCriteria();
+                        criteria_p.andParentsIdEqualTo(user.getUserId());
+                        criteria_p.andStudentIdEqualTo(object.getInteger("studentId"));
+                        user = userMapper.selectByPrimaryKey(parentsMapper.selectByExample(parentsExample).get(0).getStudentId());
                     }
                     if (student != null) {
                         c = classMapper.selectByPrimaryKey(student.getClassId());

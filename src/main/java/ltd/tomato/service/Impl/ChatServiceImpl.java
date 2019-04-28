@@ -59,14 +59,14 @@ public class ChatServiceImpl implements ChatService {
                 resultSet.put("status", 1);
                 resultSet.put("message", "获取消息列表失败！");
                 resultSet.put("total", total);
-                resultSet.put("data", new ArrayList<>(16));
+                resultSet.put("data", null);
             }
         } catch (Exception e) {
             e.printStackTrace();
             resultSet.put("status", 100);
             resultSet.put("message", "获取消息列表错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", new ArrayList<>(16));
+            resultSet.put("data", null);
         }
         return resultSet;
     }
@@ -118,14 +118,14 @@ public class ChatServiceImpl implements ChatService {
                 resultSet.put("status", 1);
                 resultSet.put("message", "获取已聊天联系人列表失败！");
                 resultSet.put("total", total);
-                resultSet.put("data", new ArrayList<>(16));
+                resultSet.put("data", null);
             }
         } catch (Exception e) {
             e.printStackTrace();
             resultSet.put("status", 100);
             resultSet.put("message", "获取已聊天联系人列表错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", new ArrayList<>(16));
+            resultSet.put("data", null);
         }
         return resultSet;
     }
@@ -143,7 +143,12 @@ public class ChatServiceImpl implements ChatService {
                 if (user.getUserType().equals("教师")) {
                     classId = object.getInteger("classId");
                 } else if (user.getUserType().equals("家长")) {
-                    classId = studentMapper.selectByPrimaryKey(parentsMapper.selectByPrimaryKey(user.getUserId()).getStudentId()).getClassId();
+                    //classId = studentMapper.selectByPrimaryKey(parentsMapper.selectByPrimaryKey(user.getUserId()).getStudentId()).getClassId();
+                    ParentsExample parentsExample = new ParentsExample();
+                    ParentsExample.Criteria criteria_p = parentsExample.createCriteria();
+                    criteria_p.andParentsIdEqualTo(user.getUserId());
+                    criteria_p.andStudentIdEqualTo(object.getInteger("studentId"));
+                    classId = studentMapper.selectByPrimaryKey(parentsMapper.selectByExample(parentsExample).get(0).getStudentId()).getClassId();
                 } else {
                     classId = studentMapper.selectByPrimaryKey(user.getUserId()).getClassId();
                 }
@@ -209,14 +214,14 @@ public class ChatServiceImpl implements ChatService {
                 resultSet.put("status", 1);
                 resultSet.put("message", "获取联系人列表失败！");
                 resultSet.put("total", total);
-                resultSet.put("data", new ArrayList<>(16));
+                resultSet.put("data", null);
             }
         } catch (Exception e) {
             e.printStackTrace();
             resultSet.put("status", 100);
             resultSet.put("message", "获取联系人列表错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", new ArrayList<>(16));
+            resultSet.put("data", null);
         }
         return resultSet;
     }

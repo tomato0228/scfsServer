@@ -64,4 +64,22 @@ public class UserController {
         return JSONObject.parseObject(JSON.toJSONString(userService.sendValidationCode(obj), SerializerFeature.WriteMapNullValue,
                 SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
     }
+
+    @PostMapping(value = "/searchUser")
+    @ResponseBody
+    public JSONObject searchUser(@RequestParam Map map) throws Exception {
+        JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+        return JSONObject.parseObject(JSON.toJSONString(userService.searchUser(obj), SerializerFeature.WriteMapNullValue,
+                SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
+    }
+
+    @PostMapping(value = "/addParents")
+    @ResponseBody
+    public JSONObject addParents(@RequestParam Map map) throws Exception {
+        JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+        return JSONObject.parseObject(JSON.toJSONString(userService.addParents(obj), SerializerFeature.WriteMapNullValue,
+                SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat));
+    }
 }

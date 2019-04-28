@@ -124,6 +124,66 @@ public class ParentsExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andParentsKeyIsNull() {
+            addCriterion("parents_key is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentsKeyIsNotNull() {
+            addCriterion("parents_key is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentsKeyEqualTo(Integer value) {
+            addCriterion("parents_key =", value, "parentsKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentsKeyNotEqualTo(Integer value) {
+            addCriterion("parents_key <>", value, "parentsKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentsKeyGreaterThan(Integer value) {
+            addCriterion("parents_key >", value, "parentsKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentsKeyGreaterThanOrEqualTo(Integer value) {
+            addCriterion("parents_key >=", value, "parentsKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentsKeyLessThan(Integer value) {
+            addCriterion("parents_key <", value, "parentsKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentsKeyLessThanOrEqualTo(Integer value) {
+            addCriterion("parents_key <=", value, "parentsKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentsKeyIn(List<Integer> values) {
+            addCriterion("parents_key in", values, "parentsKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentsKeyNotIn(List<Integer> values) {
+            addCriterion("parents_key not in", values, "parentsKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentsKeyBetween(Integer value1, Integer value2) {
+            addCriterion("parents_key between", value1, value2, "parentsKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentsKeyNotBetween(Integer value1, Integer value2) {
+            addCriterion("parents_key not between", value1, value2, "parentsKey");
+            return (Criteria) this;
+        }
+
         public Criteria andParentsIdIsNull() {
             addCriterion("parents_id is null");
             return (Criteria) this;

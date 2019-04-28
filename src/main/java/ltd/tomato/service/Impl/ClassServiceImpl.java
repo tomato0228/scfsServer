@@ -28,7 +28,7 @@ public class ClassServiceImpl implements ClassService {
     TclassMapper tclassMapper;
 
     @Override
-    public Map<String, Object> getClassByUser(JSONObject object) throws Exception {
+    public Map<String, Object> getClassByUser(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
 
@@ -62,7 +62,7 @@ public class ClassServiceImpl implements ClassService {
             resultSet.put("status", 100);
             resultSet.put("message", "获取班级列表错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", new ArrayList<>());
+            resultSet.put("data", null);
         }
         return resultSet;
     }

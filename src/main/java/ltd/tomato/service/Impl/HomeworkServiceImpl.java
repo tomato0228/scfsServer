@@ -29,7 +29,7 @@ public class HomeworkServiceImpl implements HomeworkService {
     TclassMapper tclassMapper;
 
     @Override
-    public Map<String, Object> getHomeworkByUser(JSONObject object) throws Exception {
+    public Map<String, Object> getHomeworkByUser(JSONObject object) {
         int total = 0;
         Map<String, Object> resultSet = new HashMap<>(16);
         List<HomeworkView> homeworkViews = new ArrayList<>(16);
@@ -49,7 +49,11 @@ public class HomeworkServiceImpl implements HomeworkService {
                     }
                 } else {
                     if (user.getUserType().equals("家长")) {
-                        user = userMapper.selectByPrimaryKey(parentsMapper.selectByPrimaryKey(user.getUserId()).getStudentId());
+                        ParentsExample parentsExample = new ParentsExample();
+                        ParentsExample.Criteria criteria_p = parentsExample.createCriteria();
+                        criteria_p.andParentsIdEqualTo(user.getUserId());
+                        criteria_p.andStudentIdEqualTo(object.getInteger("studentId"));
+                        user = userMapper.selectByPrimaryKey(parentsMapper.selectByExample(parentsExample).get(0).getStudentId());
                     }
                     int classId = studentMapper.selectByPrimaryKey(user.getUserId()).getClassId();
                     criteria.andClassIdEqualTo(classId);
@@ -70,7 +74,7 @@ public class HomeworkServiceImpl implements HomeworkService {
             resultSet.put("status", 100);
             resultSet.put("message", "获取作业列表错误！");
             resultSet.put("total", 0);
-            resultSet.put("data", new ArrayList<>());
+            resultSet.put("data", null);
         }
         return resultSet;
     }
