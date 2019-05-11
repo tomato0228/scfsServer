@@ -43,6 +43,7 @@ public class CourseServiceImpl implements CourseService {
                 if (user.getUserType().equals("教师")) {
                     criteria_t.andTeacherIdEqualTo(user.getUserId());
                     criteria_t.andTclassValidationEqualTo("审核通过");
+                    criteria_t.andClassIdEqualTo(object.getInteger("classId"));
                 } else {
                     if (user.getUserType().equals("家长")) {
                         ParentsExample parentsExample = new ParentsExample();
